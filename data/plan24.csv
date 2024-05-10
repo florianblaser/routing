@@ -1,0 +1,639 @@
+;Location;Straße;PLZ;Ort;AD;Mobil;KW;Tag;Datum;von (soll);bis (soll);Status;Promoter
+;EURONICS OWL Geseke;Bäckstraße 4;59590;Geseke;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:23;17:23;durchgeführt;Paul Janzen
+;EURONICS XXL Waldecker;Südring 40;33647;Bielefeld;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:25;17:25;durchgeführt;Paul Janzen
+;MediaMarkt;Vennstraße 40;33330;Gütersloh;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:26;17:26;durchgeführt;Paul Janzen
+;MediaMarkt;Weberstraße 1;49191;Belm;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:27;17:27;durchgeführt;Paul Janzen
+;MediaMarkt;Im Schleeke 6-8;38640;Goslar;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:28;17:28;durchgeführt;Paul Janzen
+;MediaMarkt;Hannoversche Straße 53c;37075;Göttingen;Paul Janzen;0151 52100084;1;Mi;03.01.2024;17:29;17:29;durchgeführt;Paul Janzen
+;MediaMarkt;Metro-Straße 16;40235;Düsseldorf;Hakim Kouji;0151 52100043;52;Fr;29.12.2023;10:00;11:00;durchgeführt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;52;Fr;29.12.2023;11:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Babelsberger Straße 4-6;14473;Potsdam;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:05;00:10;durchgeführt;Benjamin Steffens
+;MyPlace - SelfStorage (Lager Benny);Märkische Allee 193;12681;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:05;00:10;durchgeführt;Benjamin Steffens
+;MEDIMAX Oranienburg;Friedensstraße 6 - 8;16515;Oranienburg;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Schloßstraße 34;12163;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;SATURN;Treitschkestraße 7;12163;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Johannisthaler Chaussee 309;12351;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MEDIA MARKT ROEHRSDORF;Ringstraße 29;09247;Röhrsdorf;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;SATURN;Ringstraße 3;09247;Chemnitz;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Guteborner Allee 1;08393;Meerane;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;Expert;An der Bundesstraße 1;14776;Brandenburg an der Havel;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Sankt-Annen-Straße 23;14776;Brandenburg an der Havel;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MEDIMAX Berlin-Pankow;Breite Straße 20;13187;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Ostsee-Park-Straße 3;18069;Rostock;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Timmermannsstrat 11a;18055;Rostock;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Landsberger Chaussee 17;16356;Ahrensfelde;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Am Pfahlberg 7;39128;Magdeburg;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Stern-Center 4;14480;Potsdam;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Am Rondell 3;12529;Schönefeld;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Feldstraße 32;32457;Porta Westfalica;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:14;13:14;durchgeführt;Paul Janzen
+;SATURN;Mindener Straße 22;32547;Bad Oeynhausen;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:16;13:16;durchgeführt;Paul Janzen
+;MEDIA MARKT JENA;Stadtrodaer Straße 105;07747;Jena;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Feldstraße 32;32457;Porta Westfalica;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:18;13:18;durchgeführt;Paul Janzen
+;MediaMarkt;Saarbrücker Straße 2;06188;Halle (Saale);Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Pohlweg 110;33100;Paderborn;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:20;13:20;durchgeführt;Paul Janzen
+;MediaMarkt;Rudolf-Walther-Straße 6;63584;Gründau;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:22;13:22;durchgeführt;Paul Janzen
+;MediaMarkt LEIPZIG PAUNSDORF;Paunsdorfer Allee 1;04329;Leipzig;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Mainaschaffer Straße 115;63741;Aschaffenburg;Paul Janzen;0151 52100084;1;Fr;05.01.2024;13:24;13:24;durchgeführt;Paul Janzen
+;SATURN;Webergasse 1;01067;Dresden;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Peschelstraße 39;01139;Dresden;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Dohnaer Straße 246;01239;Dresden;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Am Borsigturm 2;13507;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;An den Freiheitswiesen 5;13597;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;MediaMarkt;Märkische Spitze 11;12681;Berlin;Benjamin Steffens;0151 52100083;52;So;31.12.2023;00:10;00:10;durchgeführt;Benjamin Steffens
+;SATURN;Kortumstraße 72-74;44787;Bochum;Hakim Kouji;0151 52100043;1;Do;04.01.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Metro-Straße 16;40235;Düsseldorf;Hakim Kouji;0151 52100043;1;Fr;05.01.2024;10:00;11:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Blumentalstraße 151-155;47803;Krefeld;Hakim Kouji;0151 52100043;1;Fr;05.01.2024;12:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Siemensstraße 4;84453;Mühldorf am Inn;Robin Schürmann;0151 52100073;2;Mo;08.01.2024;12:00;12:00;bestätigt;Robin Schürmann
+;MediaMarkt;Siemensstraße 4;84453;Mühldorf am Inn;Robin Schürmann;0151 52100073;2;Mo;08.01.2024;13:26;13:26;durchgeführt;Robin Schürmann
+;Elektro Enzinger GmbH;Braumeisterstraße 3;84524;Neuötting;Robin Schürmann;0151 52100073;2;Mo;08.01.2024;14:25;14:25;durchgeführt;Robin Schürmann
+;expert Jöhnk;Rendsburger Straße 121;24340;Eckernförde;Frank Friedrich;0151 52100097;2;Mo;08.01.2024;17:17;17:17;durchgeführt;Frank Friedrich
+;;;;;Benjamin Steffens;0151 52100083;4;Mo;22.01.2024;;;Urlaub;Benjamin Steffens
+;;;;;Benjamin Steffens;0151 52100083;4;Di;23.01.2024;;;Urlaub;Benjamin Steffens
+;;;;;Benjamin Steffens;0151 52100083;4;Mi;24.01.2024;;;Urlaub;Benjamin Steffens
+;Lager 24/7 (Lager Paul);Pamplonastraße 9;33106;Paderborn;Paul Janzen;0151 52100084;2;Di;09.01.2024;07:58;07:58;durchgeführt;Paul Janzen
+;;;;;Benjamin Steffens;0151 52100083;4;Do;25.01.2024;;;Urlaub;Benjamin Steffens
+;;;;;Benjamin Steffens;0151 52100083;4;Fr;26.01.2024;;;Urlaub;Benjamin Steffens
+;MediaMarkt;Einsteinstraße 130;81675;München;Robin Schürmann;0151 52100073;2;Di;09.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Hanauer Straße 77;80993;München;Robin Schürmann;0151 52100073;2;Di;09.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Neuhauser Straße 39;80331;München;Robin Schürmann;0151 52100073;2;Di;09.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Maria-Probst-Straße 6;80939;München;Robin Schürmann;0151 52100073;2;Di;09.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;1;Fr;05.01.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;1;Do;04.01.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;1;Mi;03.01.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;1;Di;02.01.2024;;;Urlaub;Robin Schürmann
+;;;;;Frank Friedrich;0151 52100097;1;Di;02.01.2024;;;Urlaub;Frank Friedrich
+;;;;;Frank Friedrich;0151 52100097;1;Mi;03.01.2024;;;Urlaub;Frank Friedrich
+;;;;;Frank Friedrich;0151 52100097;1;Do;04.01.2024;;;Urlaub;Frank Friedrich
+;;;;;Frank Friedrich;0151 52100097;1;Fr;05.01.2024;;;Urlaub;Frank Friedrich
+;MediaMarkt;Dänischburger Landstraße 81;23569;Lübeck;Frank Friedrich;0151 52100097;2;Di;09.01.2024;16:30;16:30;durchgeführt;Frank Friedrich
+;MediaMarkt;Herrenholz 14;23556;Lübeck;Frank Friedrich;0151 52100097;2;Di;09.01.2024;16:31;16:31;durchgeführt;Frank Friedrich
+;MediaMarkt;Poppenbütteler Weg 31;22339;Hamburg;Frank Friedrich;0151 52100097;2;Di;09.01.2024;16:32;16:32;durchgeführt;Frank Friedrich
+;MEDIA MARKT ERFURT DABERSTEDT;Hermsdorfer Straße 4;99099;Erfurt;Paul Janzen;0151 52100084;2;Di;09.01.2024;20:01;20:01;durchgeführt;Paul Janzen
+;MediaMarkt;Engersche Straße 96;33611;Bielefeld;Paul Janzen;0151 52100084;2;Di;09.01.2024;20:03;20:03;durchgeführt;Paul Janzen
+;MEDIMAX Aschersleben;Seegraben 5-6;06449;Aschersleben;Marco Kolibius;0174 3458679;2;Mi;10.01.2024;10:12;10:12;durchgeführt;Marco Kolibius
+;Lager 24/7 (Lager Paul);Pamplonastraße 9;33106;Paderborn;Paul Janzen;0151 52100084;2;Mi;10.01.2024;11:07;11:07;durchgeführt;Paul Janzen
+;MediaMarkt;Maria-Probst-Straße 6;80939;München;Robin Schürmann;0151 52100073;2;Mi;10.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Einsteinstraße 130;81675;München;Robin Schürmann;0151 52100073;2;Mi;10.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Südertor 1;59557;Lippstadt;Paul Janzen;0151 52100084;2;Mi;10.01.2024;12:15;12:15;durchgeführt;Paul Janzen
+;SATURN;Hanauer Straße 77;80993;München;Robin Schürmann;0151 52100073;2;Mi;10.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Südertor 1;59557;Lippstadt;Paul Janzen;0151 52100084;2;Mi;10.01.2024;12:16;12:16;durchgeführt;Paul Janzen
+;SATURN;Willy-Brandt-Platz 5;81829;München;Robin Schürmann;0151 52100073;3;Mo;15.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Ollenhauerstraße 6;81737;München;Robin Schürmann;0151 52100073;2;Mi;10.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Gewerbepark Cite 7;76532;Baden-Baden;Ronny Gornik;0151 52100086;2;Mi;10.01.2024;12:36;12:36;durchgeführt;Ronny Gornik
+;MediaMarkt;Münchener Straße 75;82362;Weilheim in Oberbayern;Robin Schürmann;0151 52100073;2;Fr;12.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Münchner Straße 173;85757;Karlsfeld;Robin Schürmann;0151 52100073;3;Mi;17.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Isarstraße 1;85356;Freising;Robin Schürmann;0151 52100073;2;Fr;12.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Eriagstraße 28;85053;Ingolstadt;Robin Schürmann;0151 52100073;3;Mi;17.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Drygalski-Allee 31;81477;München;Robin Schürmann;0151 52100073;3;Mo;15.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Georg-Aicher-Straße 6-10;83026;Rosenheim;Robin Schürmann;0151 52100073;3;Mo;15.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Vordere Ledergasse 30;90403;Nürnberg;Robin Schürmann;0151 52100073;2;Do;11.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Virnsberger Straße 2-4;90431;Nürnberg;Robin Schürmann;0151 52100073;2;Do;11.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Frauenauracher Straße 108;91056;Erlangen;Robin Schürmann;0151 52100073;2;Do;11.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Blaubeurer Straße 24;89077;Ulm;Robin Schürmann;0151 52100073;3;Di;16.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Fraunhoferstraße 9;87700;Memmingen;Robin Schürmann;0151 52100073;3;Di;16.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;expert Soest;Senator-Schwartz-Ring 24;59494;Soest;Paul Janzen;0151 52100084;2;Mi;10.01.2024;13:06;13:06;durchgeführt;Paul Janzen
+;SATURN;Neuhauser Straße 39;80331;München;Robin Schürmann;0151 52100073;3;Di;16.01.2024;12:00;12:00;storniert;Robin Schürmann
+;Euronics Berlet Soest;Opmünder Weg 65-67;59494;Soest;Paul Janzen;0151 52100084;2;Mi;10.01.2024;13:37;13:37;durchgeführt;Paul Janzen
+;SATURN;Centroallee 4;46047;Oberhausen;Hakim Kouji;0151 52100043;2;Mi;10.01.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Berliner Platz 2;46395;Bocholt;Hakim Kouji;0151 52100043;2;Mi;10.01.2024;13:00;15:00;durchgeführt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;2;Mo;08.01.2024;10:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Friedrich-Ebert-Damm 110;22047;Hamburg;Frank Friedrich;0151 52100097;2;Mi;10.01.2024;18:14;18:14;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;2;Mi;10.01.2024;18:15;18:15;durchgeführt;Frank Friedrich
+;SATURN;Theresienhöhe 4;50354;Hürth;Hakim Kouji;0151 52100043;2;Di;09.01.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Max-Planck-Straße 24;50858;Köln;Hakim Kouji;0151 52100043;2;Di;09.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Vietorstraße 7;51103;Köln;Hakim Kouji;0151 52100043;2;Di;09.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Evinger Straße 170;44339;Dortmund;Hakim Kouji;0151 52100043;1;Do;04.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Westenhellweg 70-84;44137;Dortmund;Hakim Kouji;0151 52100043;1;Do;04.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;1;Fr;05.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Friedrich-Engels-Allee 34;42103;Wuppertal;Hakim Kouji;0151 52100043;2;Mo;08.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;Neumarkt 1;42103;Wuppertal;Hakim Kouji;0151 52100043;2;Mo;08.01.2024;16:00;17:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Gladbecker Straße 413;45326;Essen;Hakim Kouji;0151 52100043;2;Mi;10.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Centroallee 4;46047;Oberhausen;Tim Flink;0152 04570288;2;Do;11.01.2024;08:09;08:09;durchgeführt;Tim Flink
+;;;;;Ronny Gornik;0151 52100086;5;Do;01.02.2024;;;Urlaub;Ronny Gornik
+;;;;;Ronny Gornik;0151 52100086;5;Fr;02.02.2024;;;Urlaub;Ronny Gornik
+;SATURN;Königsplatz 61;34117;Kassel;Paul Janzen;0151 52100084;2;Do;11.01.2024;12:06;12:06;durchgeführt;Paul Janzen
+;MediaMarkt;Knorrstraße 28;34134;Kassel;Paul Janzen;0151 52100084;2;Do;11.01.2024;13:22;13:22;durchgeführt;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;2;Do;11.01.2024;14:13;14:13;durchgeführt;Paul Janzen
+;SATURN;Friedrich-Ebert-Platz 2;51373;Leverkusen;Hakim Kouji;0151 52100043;2;Do;11.01.2024;11:00;13:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Hohe Straße 121-131;50667;Köln;Hakim Kouji;0151 52100043;2;Do;11.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Maybachstraße 115;50670;Köln;Hakim Kouji;0151 52100043;2;Do;11.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Papenstraße 5;28195;Bremen;Frank Friedrich;0151 52100097;2;Do;11.01.2024;17:49;17:49;durchgeführt;Frank Friedrich
+;SATURN;Steinsetzerstraße 13;28279;Bremen;Frank Friedrich;0151 52100097;2;Do;11.01.2024;17:50;17:50;durchgeführt;Frank Friedrich
+;Dodenhof;Posthausen 1;28870;Ottersberg;Frank Friedrich;0151 52100097;2;Do;11.01.2024;17:52;17:52;durchgeführt;Frank Friedrich
+;Mediamarkt;Kamp 50;49074;Osnabrück;Paul Janzen;0151 52100084;2;Fr;12.01.2024;10:57;10:57;durchgeführt;Paul Janzen
+;Expert;Hannoversche Straße 82-88;49084;Osnabrück;Paul Janzen;0151 52100084;2;Fr;12.01.2024;11:24;11:24;durchgeführt;Paul Janzen
+;EURONICS JK & Hawerkamp GmbH;Münsterstraße 9-11;49525;Lengerich;Paul Janzen;0151 52100084;2;Fr;12.01.2024;13:06;13:06;durchgeführt;Paul Janzen
+;MediaMarkt;Gärtnerstraße 169;25469;Halstenbek;Frank Friedrich;0151 52100097;2;Fr;12.01.2024;14:59;14:59;durchgeführt;Frank Friedrich
+;MediaMarkt;Paul-Nevermann-Platz 15;22765;Hamburg;Frank Friedrich;0151 52100097;2;Fr;12.01.2024;15:00;15:00;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;2;Fr;12.01.2024;15:02;15:02;durchgeführt;Frank Friedrich
+;SATURN;Goethestraße 3;07743;Jena;Marco Kolibius;0174 3458679;3;Mo;15.01.2024;08:07;08:07;durchgeführt;Marco Kolibius
+;MediaMarkt;Regensburger Straße 37;94036;Passau;Robin Schürmann;0151 52100073;3;Do;18.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Am Handelshof 2;97076;Würzburg;Robin Schürmann;0151 52100073;3;Di;16.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Expert;Albaxer Straße 61;37671;Höxter;Paul Janzen;0151 52100084;3;Mo;15.01.2024;11:50;11:50;durchgeführt;Paul Janzen
+;expert Holzminden;Bülte 8;37603;Holzminden;Paul Janzen;0151 52100084;3;Mo;15.01.2024;12:17;12:17;durchgeführt;Paul Janzen
+;MediaMarkt;Humboldtstraße 4;37603;Holzminden;Paul Janzen;0151 52100084;3;Mo;15.01.2024;12:33;12:33;durchgeführt;Paul Janzen
+;MediaMarkt;Böcklerstraße 5;31789;Hameln;Paul Janzen;0151 52100084;3;Mo;15.01.2024;14:08;14:08;durchgeführt;Paul Janzen
+;MEDIMAX Wismar;Marktstraße 1;23968;Gägelow;Frank Friedrich;0151 52100097;3;Mo;15.01.2024;16:16;16:16;durchgeführt;Frank Friedrich
+;MediaMarkt;Marienplatz 5-7;19053;Schwerin;Frank Friedrich;0151 52100097;3;Mo;15.01.2024;16:19;16:19;durchgeführt;Frank Friedrich
+;Expert;Grabenstraße 1;19061;Schwerin;Frank Friedrich;0151 52100097;3;Mo;15.01.2024;16:21;16:21;durchgeführt;Frank Friedrich
+;MediaMarkt;Konrad-Adenauer-Ring 95;41464;Neuss;Hakim Kouji;0151 52100043;3;Mo;15.01.2024;12:00;13:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Voccartstraße 66;52134;Herzogenrath;Hakim Kouji;0151 52100043;3;Mo;15.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Auerbachstraße 30;52249;Eschweiler;Hakim Kouji;0151 52100043;3;Mo;15.01.2024;16:00;17:00;durchgeführt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;2;Fr;12.01.2024;10:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Centroallee 4;46047;Oberhausen;Hakim Kouji;0151 52100043;2;Fr;12.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Berliner Platz 2;46395;Bocholt;Hakim Kouji;0151 52100043;2;Fr;12.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;Ferdinand-Lassalle-Straße 7;72770;Reutlingen;Ronny Gornik;0151 52100086;3;Di;16.01.2024;10:35;10:35;durchgeführt;Ronny Gornik
+;SATURN;Ludgeristraße 100;48143;Münster;Hakim Kouji;0151 52100043;3;Di;16.01.2024;12:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Robert-Bosch-Straße 2;48153;Münster;Hakim Kouji;0151 52100043;3;Di;16.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Gottlieb-Daimler-Straße 27;35398;Gießen;Paul Janzen;0151 52100084;3;Di;16.01.2024;11:42;11:42;durchgeführt;Paul Janzen
+;expert klein;Gottlieb-Daimler-Straße 14;35398;Gießen;Paul Janzen;0151 52100084;3;Di;16.01.2024;12:12;12:12;durchgeführt;Paul Janzen
+;Expert;Im Schwarzenborn 2;35041;Marburg;Paul Janzen;0151 52100084;3;Di;16.01.2024;12:51;12:51;durchgeführt;Paul Janzen
+;MediaMarkt;Erlenring 19;35037;Marburg;Paul Janzen;0151 52100084;3;Di;16.01.2024;13:33;13:33;durchgeführt;Paul Janzen
+;SATURN;Julius-Brecht-Straße 12;22609;Hamburg;Frank Friedrich;0151 52100097;3;Di;16.01.2024;17:24;17:24;durchgeführt;Frank Friedrich
+;MediaMarkt;Heinkelstraße 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;3;Mi;17.01.2024;11:27;11:27;durchgeführt;Ronny Gornik
+;SATURN;Marstall 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;3;Mi;17.01.2024;11:48;11:48;durchgeführt;Ronny Gornik
+;MediaMarkt;Pferdemarkt 1;99734;Nordhausen;Paul Janzen;0151 52100084;3;Mi;17.01.2024;13:06;13:06;durchgeführt;Paul Janzen
+;expert HERFAG Elektrotechnik GmbH;Landgrabenstraße 6A;99734;Nordhausen;Paul Janzen;0151 52100084;3;Mi;17.01.2024;14:17;14:17;durchgeführt;Paul Janzen
+;expert Wunstorf;Industriestraße 3;31515;Wunstorf;Frank Friedrich;0151 52100097;3;Mi;17.01.2024;16:32;16:32;durchgeführt;Frank Friedrich
+;Expert;Havelser Straße 1;30823;Garbsen;Frank Friedrich;0151 52100097;3;Mi;17.01.2024;16:34;16:34;durchgeführt;Frank Friedrich
+;SATURN;Thünenstraße 2-8;58511;Lüdenscheid;Hakim Kouji;0151 52100043;3;Mi;17.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Am Helweg 4;31655;Stadthagen;Paul Janzen;0151 52100084;3;Do;18.01.2024;10:56;10:56;durchgeführt;Paul Janzen
+;Expert;Jahnstraße 22;31655;Stadthagen;Paul Janzen;0151 52100084;3;Do;18.01.2024;11:31;11:31;durchgeführt;Paul Janzen
+;expert Bening Minden;Königstraße 162;32427;Minden;Paul Janzen;0151 52100084;3;Do;18.01.2024;14:31;14:31;durchgeführt;Paul Janzen
+;Expert;Wasserbreite 11-13;32257;Bünde;Paul Janzen;0151 52100084;3;Do;18.01.2024;15:10;15:10;durchgeführt;Paul Janzen
+;MediaMarkt;Poststraße 1;57076;Siegen;Hakim Kouji;0151 52100043;3;Do;18.01.2024;13:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Brandgehaege 3;38444;Wolfsburg;Frank Friedrich;0151 52100097;3;Do;18.01.2024;18:02;18:02;durchgeführt;Frank Friedrich
+;MEDIMAX Detmold;Ernst-Hilker Straße 15;32758;Detmold;Paul Janzen;0151 52100084;3;Fr;19.01.2024;10:11;10:11;durchgeführt;Paul Janzen
+;Expert;Niemeierstraße 8;32758;Detmold;Paul Janzen;0151 52100084;3;Fr;19.01.2024;10:36;10:36;durchgeführt;Paul Janzen
+;Expert;Hoffmannstraße 19;32105;Bad Salzuflen;Paul Janzen;0151 52100084;3;Fr;19.01.2024;11:37;11:37;durchgeführt;Paul Janzen
+;expert Bening Lemgo;Bismarckstraße 5;32657;Lemgo;Paul Janzen;0151 52100084;3;Fr;19.01.2024;12:37;12:37;durchgeführt;Paul Janzen
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;3;Fr;19.01.2024;13:00;13:00;durchgeführt;Robin Schürmann
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;3;Fr;19.01.2024;17:23;17:23;durchgeführt;Frank Friedrich
+;SATURN;Steinmüllerallee 5;51643;Gummersbach;Hakim Kouji;0151 52100043;3;Fr;19.01.2024;12:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;Webergasse 1;01067;Dresden;Marco Kolibius;0174 3458679;4;Mo;22.01.2024;08:03;08:03;durchgeführt;Marco Kolibius
+;MediaMarkt;Waginger Straße 4;83301;Traunreut;Robin Schürmann;0151 52100073;4;Mo;22.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Haslacher Feld 1;83278;Traunstein;Robin Schürmann;0151 52100073;4;Mo;22.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Expert;Grünwalder Weg 22;82008;Unterhaching;Robin Schürmann;0151 52100073;4;Di;23.01.2024;10:00;11:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Feringastraße 6;85774;Unterföhring;Robin Schürmann;0151 52100073;4;Mi;24.01.2024;15:00;16:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Johann-Auer-Straße 2;85435;Erding;Robin Schürmann;0151 52100073;4;Di;23.01.2024;11:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Haifa-Allee 1;55128;Mainz;Ronny Gornik;0151 52100086;4;Mo;22.01.2024;11:05;12:05;durchgeführt;Ronny Gornik
+;MediaMarkt;Kirchstraße 34;72622;Nürtingen;Ronny Gornik;0151 52100086;5;Di;30.01.2024;08:45;09:45;durchgeführt;Ronny Gornik
+;expert ESCH;Brückeswasen 36-40;68199;Mannheim;Ronny Gornik;0151 52100086;6;Di;06.02.2024;10:15;11:15;geplant;Ronny Gornik
+;MediaMarkt;Äppelallee 69;65203;Wiesbaden;Ronny Gornik;0151 52100086;4;Di;23.01.2024;11:10;12:10;durchgeführt;Ronny Gornik
+;expert klein;Schwabenheimer Weg 3;55543;Bad Kreuznach;Ronny Gornik;0151 52100086;6;Di;06.02.2024;12:55;13:55;geplant;Ronny Gornik
+;Expert;Hanns-Klemm-Straße 2/1;71034;Böblingen;Ronny Gornik;0151 52100086;6;Di;06.02.2024;16:20;17:20;geplant;Ronny Gornik
+;MediaMarkt;Hasengartenstraße 25;65189;Wiesbaden;Ronny Gornik;0151 52100086;6;Do;08.02.2024;10:10;11:10;geplant;Ronny Gornik
+;MediaMarkt;Weilstraße 227;73733;Esslingen am Neckar;Ronny Gornik;0151 52100086;4;Mi;24.01.2024;08:55;09:55;durchgeführt;Ronny Gornik
+;MediaMarkt;Bühlstraße 140;70736;Fellbach;Ronny Gornik;0151 52100086;4;Mi;24.01.2024;10:15;11:15;durchgeführt;Ronny Gornik
+;MediaMarkt;Breslauer Straße 1a;66121;Saarbrücken;Ronny Gornik;0151 52100086;6;Fr;09.02.2024;10:30;11:30;durchgeführt;Ronny Gornik
+;MediaMarkt;Dr.-Tietz-Straße 13;66115;Saarbrücken;Ronny Gornik;0151 52100086;7;Mo;12.02.2024;11:30;12:30;durchgeführt;Ronny Gornik
+;expert klein;Rheinstraße 50;56355;Nastätten;Ronny Gornik;0151 52100086;7;Di;13.02.2024;11:45;12:45;geplant;Ronny Gornik
+;Expert;Römerstraße 57;54516;Wittlich;Ronny Gornik;0151 52100086;7;Di;13.02.2024;13:30;14:30;geplant;Ronny Gornik
+;MediaMarkt;Heilbronner Straße 393-397;70469;Stuttgart;Ronny Gornik;0151 52100086;4;Do;25.01.2024;12:10;13:10;durchgeführt;Ronny Gornik
+;Lager 24/7 (Lager Paul);Pamplonastraße 9;33106;Paderborn;Paul Janzen;0151 52100084;5;Di;30.01.2024;12:35;12:35;durchgeführt;Paul Janzen
+;expert Wolfenbüttel GmbH;Bahnhofstraße 6A;38300;Wolfenbüttel;Paul Janzen;0151 52100084;5;Di;30.01.2024;12:53;12:53;durchgeführt;Paul Janzen
+;EURONICS Kretschmer;Hauptstraße 34;38304;Wolfenbüttel;Paul Janzen;0151 52100084;5;Di;30.01.2024;12:54;12:54;durchgeführt;Paul Janzen
+;SATURN;Papenstraße 5;28195;Bremen;Frank Friedrich;0151 52100097;5;Di;30.01.2024;14:39;14:39;durchgeführt;Frank Friedrich
+;SATURN;Steinsetzerstraße 13;28279;Bremen;Frank Friedrich;0151 52100097;5;Di;30.01.2024;14:41;14:41;durchgeführt;Frank Friedrich
+;expert Einbeck;Walter-Poser-Straße 4;37574;Einbeck;Paul Janzen;0151 52100084;5;Di;30.01.2024;14:57;14:57;durchgeführt;Paul Janzen
+;EURONICS XXL Einbeck;Altendorfer Tor 20;37574;Einbeck;Paul Janzen;0151 52100084;5;Di;30.01.2024;15:17;15:17;durchgeführt;Paul Janzen
+;MediaMarkt;Pommernstraße 4;93073;Neutraubling;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;10:30;11:30;storniert;Robin Schürmann
+;MediaMarkt;Gaußstr 1;84030;Landshut;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;12:25;13:25;storniert;Robin Schürmann
+;Expert;Münchner Straße 32;85354;Freising;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;14:00;15:00;storniert;Robin Schürmann
+;MediaMarkt;Maria-Probst-Straße 6;80939;München;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;15:30;16:30;durchgeführt;Robin Schürmann
+;MediaMarkt;Pommernstraße 4;93073;Neutraubling;Robin Schürmann;0151 52100073;5;Fr;02.02.2024;10:30;11:30;storniert;Robin Schürmann
+;MediaMarkt;Gaußstr 1;84030;Landshut;Robin Schürmann;0151 52100073;5;Fr;02.02.2024;12:25;13:25;durchgeführt;Robin Schürmann
+;Expert;Dresdner Straße 7;82110;Germering;Robin Schürmann;0151 52100073;6;Mo;05.02.2024;09:15;10:15;geplant;Robin Schürmann
+;MediaMarkt;Münchener Straße 75;82362;Weilheim in Oberbayern;Robin Schürmann;0151 52100073;6;Mo;05.02.2024;10:55;11:55;geplant;Robin Schürmann
+;MediaMarkt;Drygalski-Allee 31;81477;München;Robin Schürmann;0151 52100073;6;Mo;05.02.2024;12:35;13:35;geplant;Robin Schürmann
+;Expert;Münchner Straße 32;85354;Freising;Robin Schürmann;0151 52100073;6;Mo;05.02.2024;14:20;15:20;geplant;Robin Schürmann
+;MediaMarkt;Raiffeisenstraße 4;86720;Nördlingen;Robin Schürmann;0151 52100073;6;Di;06.02.2024;10:35;11:35;geplant;Robin Schürmann
+;expert Schlagenhauf Ellwangen;An der Jagst 32;73479;Ellwangen (Jagst);Robin Schürmann;0151 52100073;6;Di;06.02.2024;12:15;13:15;geplant;Robin Schürmann
+;MediaMarkt;Carl-Zeiss-Straße 96;73431;Aalen;Robin Schürmann;0151 52100073;6;Di;06.02.2024;13:45;14:45;geplant;Robin Schürmann
+;MediaMarkt;Pommernstraße 4;93073;Neutraubling;Robin Schürmann;0151 52100073;6;Mi;07.02.2024;10:30;11:30;geplant;Robin Schürmann
+;MediaMarkt;Am Bergsteig 1;92224;Amberg;Robin Schürmann;0151 52100073;6;Mi;07.02.2024;12:30;13:30;geplant;Robin Schürmann
+;MediaMarkt;Regensburger Straße 61;92637;Weiden;Robin Schürmann;0151 52100073;6;Mi;07.02.2024;14:05;15:05;geplant;Robin Schürmann
+;expert Schlagenhauf;Adolph-Kolping-Straße 3B;91781;Weißenburg in Bayern;Robin Schürmann;0151 52100073;6;Do;08.02.2024;10:40;11:40;geplant;Robin Schürmann
+;Expert;Alte Rother Straße 1;91126;Schwabach;Robin Schürmann;0151 52100073;6;Do;08.02.2024;12:20;13:20;geplant;Robin Schürmann
+;MediaMarkt;Am Falbenholzweg 15;91126;Schwabach;Robin Schürmann;0151 52100073;6;Do;08.02.2024;13:35;14:35;geplant;Robin Schürmann
+;MediaMarkt NUERNBERG LANGWASSER;Oppelner Straße 213;90473;Nürnberg;Robin Schürmann;0151 52100073;6;Do;08.02.2024;14:55;15:55;geplant;Robin Schürmann
+;MediaMarkt;Spinnereistraße 4;95445;Bayreuth;Robin Schürmann;0151 52100073;6;Fr;09.02.2024;11:35;12:35;geplant;Robin Schürmann
+;MediaMarkt;Kronacher Straße 27;95326;Kulmbach;Robin Schürmann;0151 52100073;6;Fr;09.02.2024;13:05;14:05;geplant;Robin Schürmann
+;Elektro Enzinger GmbH;Braumeisterstraße 3;84524;Neuötting;Robin Schürmann;0151 52100073;7;Mo;12.02.2024;10:20;11:20;geplant;Robin Schürmann
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;5;Do;01.02.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Regensburger Straße 37;94036;Passau;Robin Schürmann;0151 52100073;7;Mo;12.02.2024;12:35;13:35;geplant;Robin Schürmann
+;SATURN;Grünaustraße 2;94032;Passau;Robin Schürmann;0151 52100073;7;Mo;12.02.2024;13:50;14:50;geplant;Robin Schürmann
+;MediaMarkt;Am Penzinger Feld 21;86899;Landsberg am Lech;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Am Forum 1;35576;Wetzlar;Paul Janzen;0151 52100084;5;Mi;31.01.2024;12:17;12:17;durchgeführt;Paul Janzen
+;Expert;Alte Straße 5;35578;Wetzlar;Paul Janzen;0151 52100084;5;Mi;31.01.2024;12:19;12:19;durchgeführt;Paul Janzen
+;MediaMarkt;Höhenstraße 10;65549;Limburg an der Lahn;Paul Janzen;0151 52100084;5;Mi;31.01.2024;12:56;12:56;durchgeführt;Paul Janzen
+;MEDIMAX Limburg-City;Joseph-Schneider-Straße 1;65549;Limburg an der Lahn;Paul Janzen;0151 52100084;5;Mi;31.01.2024;13:14;13:14;durchgeführt;Paul Janzen
+;Expert Schäfer;Limburger Straße 2 a;65604;Elz;Paul Janzen;0151 52100084;5;Mi;31.01.2024;13:23;13:23;durchgeführt;Paul Janzen
+;expert Chemnitz;Annaberger Straße 315;09125;Chemnitz;Marco Kolibius;0174 3458679;5;Mi;31.01.2024;13:29;13:29;durchgeführt;Marco Kolibius
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;5;Mi;31.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Brandgehaege 3;38444;Wolfsburg;Frank Friedrich;0151 52100097;5;Mi;31.01.2024;17:18;17:18;durchgeführt;Frank Friedrich
+;Expert;Weserstraße 1;31303;Burgdorf;Frank Friedrich;0151 52100097;5;Mi;31.01.2024;17:19;17:19;durchgeführt;Frank Friedrich
+;MediaMarkt;Schönbachstraße 192;86154;Augsburg;Robin Schürmann;0151 52100073;5;Do;01.02.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;expert Sigmaringen;In den Käppeleswiesen 11;72488;Sigmaringen;Ronny Gornik;0151 52100086;7;Fr;16.02.2024;09:05;10:05;krank;Ronny Gornik
+;EURONICS XXL Biberach;Hubertus-Liebrecht-Straße 42;88400;Biberach an der Riß;Ronny Gornik;0151 52100086;7;Fr;16.02.2024;11:00;12:00;krank;Ronny Gornik
+;Saturn;Hans-Seemüller-Straße 1;86316;Friedberg;Robin Schürmann;0151 52100073;5;Do;01.02.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;;;;;Paul Janzen;0151 52100084;5;Do;01.02.2024;;;krank;Paul Janzen
+;;;;;Paul Janzen;0151 52100084;5;Fr;02.02.2024;;;krank;Paul Janzen
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;5;Do;01.02.2024;10:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;5;Di;30.01.2024;10:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Hohe Straße 121-131;50667;Köln;Hakim Kouji;0151 52100043;5;Mi;31.01.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Hohe Straße 46-50;50667;Köln;Hakim Kouji;0151 52100043;5;Mi;31.01.2024;12:00;13:00;durchgeführt;Hakim Kouji
+;SATURN;Maybachstraße 115;50670;Köln;Hakim Kouji;0151 52100043;5;Mi;31.01.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Vietorstraße 7;51103;Köln;Hakim Kouji;0151 52100043;5;Mi;31.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Platz am Ritterbrunnen 1;38100;Braunschweig;Frank Friedrich;0151 52100097;5;Do;01.02.2024;17:18;17:18;durchgeführt;Frank Friedrich
+;MediaMarkt;Haddorfer Grenzweg 2a;21682;Stade;Frank Friedrich;0151 52100097;5;Do;01.02.2024;17:19;17:19;durchgeführt;Frank Friedrich
+;MediaMarkt;Eriagstraße 28;85053;Ingolstadt;Robin Schürmann;0151 52100073;7;Di;13.02.2024;10:00;11:00;geplant;Robin Schürmann
+;SATURN;Am Westpark 7;85057;Ingolstadt;Robin Schürmann;0151 52100073;7;Di;13.02.2024;11:20;12:20;geplant;Robin Schürmann
+;MediaMarkt;Am Südpark 7;86633;Neuburg an der Donau;Robin Schürmann;0151 52100073;7;Di;13.02.2024;12:50;13:50;geplant;Robin Schürmann
+;MediaMarkt;Weberstraße 1;49191;Belm;Paul Janzen;0151 52100084;4;Mo;22.01.2024;11:37;11:37;durchgeführt;Paul Janzen
+;expert Melle;Weststraße 15;49324;Melle;Paul Janzen;0151 52100084;4;Mo;22.01.2024;13:15;13:15;durchgeführt;Paul Janzen
+;Expert;Braasstraße 1d;31737;Rinteln;Paul Janzen;0151 52100084;4;Mo;22.01.2024;14:02;14:02;durchgeführt;Paul Janzen
+;Expert;Osttangente 10;31832;Springe;Paul Janzen;0151 52100084;4;Mo;22.01.2024;15:46;15:46;durchgeführt;Paul Janzen
+;MediaMarkt;Kirchweg 88;24558;Henstedt-Ulzburg;Frank Friedrich;0151 52100097;4;Mo;22.01.2024;17:17;17:17;durchgeführt;Frank Friedrich
+;SATURN;Saseler Damm 43;22395;Hamburg;Frank Friedrich;0151 52100097;4;Mo;22.01.2024;17:18;17:18;durchgeführt;Frank Friedrich
+;SATURN;Julius-Brecht-Straße 12;22609;Hamburg;Frank Friedrich;0151 52100097;4;Mo;22.01.2024;17:19;17:19;durchgeführt;Frank Friedrich
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;4;Mo;22.01.2024;13:00;13:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Carl-Zeiss-Straße 8;56070;Koblenz;Hakim Kouji;0151 52100043;4;Mo;22.01.2024;13:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;An der Römervilla 3;56070;Koblenz;Hakim Kouji;0151 52100043;4;Mo;22.01.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Langendorfer Straße 84-86;56564;Neuwied;Hakim Kouji;0151 52100043;4;Mo;22.01.2024;16:00;17:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Offenbacher Straße 9;63128;Dietzenbach;Paul Janzen;0151 52100084;4;Di;23.01.2024;13:03;13:03;durchgeführt;Paul Janzen
+;SATURN;Hermesstraße 4;63263;Neu-Isenburg;Paul Janzen;0151 52100084;4;Di;23.01.2024;14:15;14:15;durchgeführt;Paul Janzen
+;EURONICS XXL Ravensburg;Ulmer Straße 7;88212;Ravensburg;Ronny Gornik;0151 52100086;4;Di;23.01.2024;14:16;14:16;durchgeführt;Ronny Gornik
+;MediaMarkt;Pasinger Bahnhofsplatz 5;81241;München;Robin Schürmann;0151 52100073;4;Di;23.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Main-Taunus-Zentrum;65843;Sulzbach;Paul Janzen;0151 52100084;4;Di;23.01.2024;18:02;18:02;durchgeführt;Paul Janzen
+;MediaMarkt;Langberger Weg 4;24941;Flensburg;Frank Friedrich;0151 52100097;4;Di;23.01.2024;19:24;19:24;durchgeführt;Frank Friedrich
+;MediaMarkt;Mühlendamm 5;24113;Kiel;Frank Friedrich;0151 52100097;4;Di;23.01.2024;19:25;19:25;durchgeführt;Frank Friedrich
+;MediaMarkt;Herrenholz 14;23556;Lübeck;Frank Friedrich;0151 52100097;4;Di;23.01.2024;19:26;19:26;durchgeführt;Frank Friedrich
+;MediaMarkt;Bajuwarenstraße 29;93053;Regensburg;Robin Schürmann;0151 52100073;4;Mi;24.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Weichser Weg 5;93059;Regensburg;Robin Schürmann;0151 52100073;4;Mi;24.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;expert Reng;Schäfflerstraße 10;93309;Kelheim;Robin Schürmann;0151 52100073;4;Mi;24.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MEDIA MARKT ERFURT DABERSTEDT;Hermsdorfer Straße 4;99099;Erfurt;Marco Kolibius;0174 3458679;4;Mi;24.01.2024;08:10;08:10;durchgeführt;Marco Kolibius
+;MEDIMAX Dresden-Neustadt;Antonstraße 2, A;01097;Dresden;Marco Kolibius;0174 3458679;4;Mi;24.01.2024;08:28;08:28;durchgeführt;Marco Kolibius
+;MediaMarkt Hildesheim;Bavenstedter Straße 65;31135;Hildesheim;Paul Janzen;0151 52100084;4;Mi;24.01.2024;11:11;11:11;durchgeführt;Paul Janzen
+;expert Hildesheim;Kaiserstraße 10;31134;Hildesheim;Paul Janzen;0151 52100084;4;Mi;24.01.2024;12:14;12:14;durchgeführt;Paul Janzen
+;MediaMarkt;Albert-Schweitzer-Straße 1;38226;Salzgitter;Paul Janzen;0151 52100084;4;Mi;24.01.2024;13:18;13:18;durchgeführt;Paul Janzen
+;Expert;Peiner Straße 107;38229;Salzgitter;Paul Janzen;0151 52100084;4;Mi;24.01.2024;13:45;13:45;durchgeführt;Paul Janzen
+;MediaMarkt;Nordring 2;21244;Buchholz in der Nordheide;Frank Friedrich;0151 52100097;4;Mi;24.01.2024;18:30;18:30;durchgeführt;Frank Friedrich
+;MediaMarkt;Hannoversche Straße 86;21079;Hamburg;Frank Friedrich;0151 52100097;4;Mi;24.01.2024;18:31;18:31;durchgeführt;Frank Friedrich
+;SATURN;Bergedorfer Straße 106;21029;Hamburg;Frank Friedrich;0151 52100097;4;Mi;24.01.2024;18:32;18:32;durchgeführt;Frank Friedrich
+;SATURN;Centroallee 4;46047;Oberhausen;Hakim Kouji;0151 52100043;4;Mi;24.01.2024;12:00;16:00;durchgeführt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;4;Di;23.01.2024;09:00;12:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Carl-Zeiss-Straße 8;56070;Koblenz;Hakim Kouji;0151 52100043;4;Di;23.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Bahnhofstraße 1/1;89231;Neu-Ulm;Robin Schürmann;0151 52100073;4;Do;25.01.2024;10:25;11:25;durchgeführt;Robin Schürmann
+;EURONICS XXL Neu-Neu-Ulm;Otto-Hahn-Straße 4;89231;Neu-Ulm;Robin Schürmann;0151 52100073;4;Do;25.01.2024;11:40;12:40;storniert;Robin Schürmann
+;SATURN;Neuhauser Straße 39;80331;München;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;09:25;10:25;storniert;Robin Schürmann
+;MediaMarkt;Schönbachstraße 192;86154;Augsburg;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;12:40;13:40;storniert;Robin Schürmann
+;SATURN;Willy-Brandt-Platz 1;86153;Augsburg;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;13:55;14:55;durchgeführt;Robin Schürmann
+;Expert;Hans-Krämer-Straße 24;94469;Deggendorf;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;13:40;14:40;storniert;Robin Schürmann
+;Saturn;Hans-Seemüller-Straße 1;86316;Friedberg;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;15:10;16:10;durchgeführt;Robin Schürmann
+;expert Dingolfing;Pappelweg 8;84130;Dingolfing;Robin Schürmann;0151 52100073;5;Di;30.01.2024;10:15;11:15;durchgeführt;Robin Schürmann
+;MediaMarkt;Maria-Probst-Straße 6;80939;München;Robin Schürmann;0151 52100073;5;Mo;29.01.2024;12:25;13:25;storniert;Robin Schürmann
+;MediaMarkt;Einsteinstraße 130;81675;München;Robin Schürmann;0151 52100073;5;Mo;29.01.2024;13:45;14:45;durchgeführt;Robin Schürmann
+;SATURN;Neuhauser Straße 39;80331;München;Robin Schürmann;0151 52100073;5;Mo;29.01.2024;15:05;16:05;durchgeführt;Robin Schürmann
+;MediaMarkt;Aiterhofener Straße 222;94315;Straubing;Robin Schürmann;0151 52100073;5;Di;30.01.2024;11:50;12:50;durchgeführt;Robin Schürmann
+;Expert;Hans-Krämer-Straße 24;94469;Deggendorf;Robin Schürmann;0151 52100073;5;Di;30.01.2024;13:20;14:20;durchgeführt;Robin Schürmann
+;MediaMarkt;Pommernstraße 4;93073;Neutraubling;Robin Schürmann;0151 52100073;5;Di;30.01.2024;15:10;16:10;storniert;Robin Schürmann
+;MediaMarkt;Johann-Auer-Straße 2;85435;Erding;Robin Schürmann;0151 52100073;7;Di;13.02.2024;15:05;16:05;geplant;Robin Schürmann
+;MediaMarkt;Mühlweg 5;73525;Schwäbisch Gmünd;Robin Schürmann;0151 52100073;7;Mi;14.02.2024;11:10;12:10;geplant;Robin Schürmann
+;MediaMarkt;Karlstraße 12;89518;Heidenheim an der Brenz;Robin Schürmann;0151 52100073;7;Mi;14.02.2024;12:50;13:50;geplant;Robin Schürmann
+;SATURN;Berliner Straße 13;89250;Senden;Robin Schürmann;0151 52100073;7;Mi;14.02.2024;14:35;15:35;geplant;Robin Schürmann
+;MediaMarkt;Laubanger 31;96052;Bamberg;Robin Schürmann;0151 52100073;7;Do;15.02.2024;11:35;12:35;geplant;Robin Schürmann
+;SATURN;Nürnberger Straße 7;91052;Erlangen;Robin Schürmann;0151 52100073;7;Do;15.02.2024;13:10;14:10;geplant;Robin Schürmann
+;expert TeVi Nürnberg Nord;Kilianstraße 90;90425;Nürnberg;Robin Schürmann;0151 52100073;7;Do;15.02.2024;14:30;15:30;geplant;Robin Schürmann
+;MediaMarkt;Stuttgarter Straße 157;74523;Schwäbisch Hall;Robin Schürmann;0151 52100073;7;Fr;16.02.2024;11:45;12:45;geplant;Robin Schürmann
+;SATURN;Residenzstraße 2-6;91522;Ansbach;Robin Schürmann;0151 52100073;7;Fr;16.02.2024;13:50;14:50;geplant;Robin Schürmann
+;MediaMarkt;Friedrich-Ebert-Damm 110;22047;Hamburg;Frank Friedrich;0151 52100097;5;Fr;02.02.2024;16:01;16:01;durchgeführt;Frank Friedrich
+;MediaMarkt;Frankenthaler Straße 129;68307;Mannheim;Ronny Gornik;0151 52100086;4;Fr;26.01.2024;10:56;10:56;durchgeführt;Ronny Gornik
+;MediaMarkt;Hofwiesenstraße 39;74564;Crailsheim;Robin Schürmann;0151 52100073;4;Do;25.01.2024;13:57;13:57;durchgeführt;Robin Schürmann
+;Expert;Dresdner Straße 7;82110;Germering;Robin Schürmann;0151 52100073;5;Mo;29.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Euronics Berlet Arnsberg-Neheim;Stembergstraße 60;59755;Arnsberg;Hakim Kouji;0151 52100043;4;Do;25.01.2024;10:00;15:00;durchgeführt;Hakim Kouji
+;Euronics Berlet Arnsberg-Neheim;Stembergstraße 60;59755;Arnsberg;Paul Janzen;0151 52100084;4;Do;25.01.2024;10:00;16:00;bestätigt;Paul Janzen
+;Euronics Berlet Arnsberg-Neheim;Stembergstraße 60;59755;Arnsberg;Paul Janzen;0151 52100084;4;Do;25.01.2024;16:19;16:19;durchgeführt;Paul Janzen
+;MediaMarkt;Posthalterweg 15;26129;Oldenburg (Oldenburg);Frank Friedrich;0151 52100097;4;Do;25.01.2024;16:31;16:31;durchgeführt;Frank Friedrich
+;SATURN;Mühlenstraße 3;26122;Oldenburg (Oldenburg);Frank Friedrich;0151 52100097;4;Do;25.01.2024;16:32;16:32;durchgeführt;Frank Friedrich
+;MediaMarkt;3-K-Weg 25a;28816;Stuhr;Frank Friedrich;0151 52100097;4;Do;25.01.2024;16:33;16:33;durchgeführt;Frank Friedrich
+;MediaMarkt;Hans-Bredow-Straße 19;28307;Bremen;Frank Friedrich;0151 52100097;4;Do;25.01.2024;16:34;16:34;durchgeführt;Frank Friedrich
+;Expert;Eichleitnerstraße 12a;86199;Augsburg;Robin Schürmann;0151 52100073;4;Fr;26.01.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Pohlweg 110;33100;Paderborn;Paul Janzen;0151 52100084;4;Fr;26.01.2024;13:57;13:57;durchgeführt;Paul Janzen
+;MediaMarkt;Engersche Straße 96;33611;Bielefeld;Paul Janzen;0151 52100084;4;Fr;26.01.2024;13:58;13:58;durchgeführt;Paul Janzen
+;MediaMarkt;Vennstraße 40;33330;Gütersloh;Paul Janzen;0151 52100084;4;Fr;26.01.2024;13:58;13:58;durchgeführt;Paul Janzen
+;MediaMarkt;Blumentalstraße 151-155;47803;Krefeld;Hakim Kouji;0151 52100043;4;Fr;26.01.2024;11:00;13:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Gärtnerstraße 169;25469;Halstenbek;Frank Friedrich;0151 52100097;4;Fr;26.01.2024;15:55;15:55;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;4;Fr;26.01.2024;15:56;15:56;durchgeführt;Frank Friedrich
+;SATURN;Neusser Straße 35;47798;Krefeld;Hakim Kouji;0151 52100043;4;Fr;26.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;Westenhellweg 70-84;44137;Dortmund;Hakim Kouji;0151 52100043;5;Fr;02.02.2024;11:00;15:00;durchgeführt;Hakim Kouji
+;MEDIMAX Dortmund;Schleefstraße 15;44287;Dortmund;Hakim Kouji;0151 52100043;5;Do;01.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;EURONICS XXL Rilke;Kieler Chaussee 6b;23758;Oldenburg in Holstein;Frank Friedrich;0151 52100097;6;Mo;05.02.2024;18:44;18:44;durchgeführt;Frank Friedrich
+;MediaMarkt;Q7 23;68161;Mannheim;Ronny Gornik;0151 52100086;7;Di;13.02.2024;14:45;15:45;geplant;Ronny Gornik
+;MediaMarkt;Floßwörthstraße 65;68199;Mannheim;Ronny Gornik;0151 52100086;7;Di;13.02.2024;16:00;17:00;geplant;Ronny Gornik
+;MediaMarkt;Wolfgang-Brumme-Allee 27;71034;Böblingen;Ronny Gornik;0151 52100086;7;Mi;14.02.2024;09:10;10:10;geplant;Ronny Gornik
+;MediaMarkt;Tilsiter Straße 15;71065;Sindelfingen;Ronny Gornik;0151 52100086;7;Mi;14.02.2024;10:25;11:25;geplant;Ronny Gornik
+;MediaMarkt;Ulmer Straße 1;70771;Leinfelden-Echterdingen;Ronny Gornik;0151 52100086;7;Mi;14.02.2024;11:40;12:40;geplant;Ronny Gornik
+;MediaMarkt;Heinkelstraße 25;73614;Schorndorf;Ronny Gornik;0151 52100086;7;Do;15.02.2024;08:10;09:10;geplant;Ronny Gornik
+;MediaMarkt;Steinbeisstraße 2;73054;Eislingen/Fils;Ronny Gornik;0151 52100086;7;Do;15.02.2024;09:40;10:40;geplant;Ronny Gornik
+;MediaMarkt;Stuttgarter Straße 1;73230;Kirchheim unter Teck;Ronny Gornik;0151 52100086;7;Do;15.02.2024;11:10;12:10;geplant;Ronny Gornik
+;SATURN;Karlsruher Straße 51-57;75179;Pforzheim;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;09:25;10:25;geplant;Ronny Gornik
+;MediaMarkt;Wilhelm-Becker-Straße 15;75179;Pforzheim;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;10:40;11:40;geplant;Ronny Gornik
+;SATURN;Durlacher Allee 111;76137;Karlsruhe;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;12:35;13:35;geplant;Ronny Gornik
+;MediaMarkt;Ettlinger-Tor-Platz 1;76133;Karlsruhe;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;13:50;14:50;geplant;Ronny Gornik
+;MediaMarkt;Feldstraße 32;32457;Porta Westfalica;Paul Janzen;0151 52100084;5;Mo;29.01.2024;10:42;10:42;durchgeführt;Paul Janzen
+;SATURN;Mindener Straße 22;32547;Bad Oeynhausen;Paul Janzen;0151 52100084;5;Mo;29.01.2024;11:49;11:49;durchgeführt;Paul Janzen
+;Expert;Hansestraße 1;33689;Bielefeld;Paul Janzen;0151 52100084;5;Mo;29.01.2024;12:55;12:55;durchgeführt;Paul Janzen
+;SATURN;Willy-Brandt-Platz 5;81829;München;Robin Schürmann;0151 52100073;5;Mo;29.01.2024;13:27;13:27;durchgeführt;Robin Schürmann
+;SATURN;Bahnhofstraße 27a;33602;Bielefeld;Paul Janzen;0151 52100084;5;Mo;29.01.2024;13:46;13:46;durchgeführt;Paul Janzen
+;SATURN;Ernst-August-Platz 3;30159;Hannover;Frank Friedrich;0151 52100097;5;Mo;29.01.2024;18:18;18:18;durchgeführt;Frank Friedrich
+;MediaMarkt;Vahrenwalder Straße 211;30165;Hannover;Frank Friedrich;0151 52100097;5;Mo;29.01.2024;18:19;18:19;durchgeführt;Frank Friedrich
+;MediaMarkt;Hildesheimer Straße 410;30519;Hannover;Frank Friedrich;0151 52100097;5;Mo;29.01.2024;18:20;18:20;durchgeführt;Frank Friedrich
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;5;Mo;29.01.2024;11:00;13:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Gladbecker Straße 413;45326;Essen;Hakim Kouji;0151 52100043;5;Mo;29.01.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Siemensstraße 16;44579;Castrop-Rauxel;Hakim Kouji;0151 52100043;5;Mo;29.01.2024;16:00;17:00;durchgeführt;Hakim Kouji
+;SATURN;Kaiserstrasse 211;76133;Karlsruhe;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;15:05;16:05;geplant;Ronny Gornik
+;MediaMarkt;Sulzbacher Straße 130;71522;Backnang;Ronny Gornik;0151 52100086;5;Di;30.01.2024;11:40;11:40;durchgeführt;Ronny Gornik
+;Expert;Stuttgarter Straße 135;71522;Backnang;Ronny Gornik;0151 52100086;5;Di;30.01.2024;12:17;12:17;durchgeführt;Ronny Gornik
+;expert Octomedia Rastatt;Im Wöhr 6;76437;Rastatt;Ronny Gornik;0151 52100086;8;Mo;19.02.2024;16:30;17:30;geplant;Ronny Gornik
+;SATURN;Königstraße 26;70173;Stuttgart;Ronny Gornik;0151 52100086;8;Di;20.02.2024;09:05;10:05;geplant;Ronny Gornik
+;MediaMarkt;Heinkelstraße 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;8;Di;20.02.2024;10:35;11:35;geplant;Ronny Gornik
+;SATURN;Rötelstraße 33;74172;Neckarsulm;Ronny Gornik;0151 52100086;8;Di;20.02.2024;12:40;13:40;geplant;Ronny Gornik
+;MediaMarkt;Edisonstraße 5;74076;Heilbronn;Ronny Gornik;0151 52100086;8;Di;20.02.2024;13:55;14:55;geplant;Ronny Gornik
+;MediaMarkt;Neulandstraße 2;74889;Sinsheim;Ronny Gornik;0151 52100086;8;Di;20.02.2024;15:25;16:25;geplant;Ronny Gornik
+;Euronics;Hohenaspen 44-54;69231;Rauenberg;Ronny Gornik;0151 52100086;8;Di;20.02.2024;16:45;17:45;geplant;Ronny Gornik
+;MediaMarkt;Schleifmühleweg 36;72070;Tübingen;Ronny Gornik;0151 52100086;8;Mi;21.02.2024;09:15;10:15;geplant;Ronny Gornik
+;MediaMarkt;Unter den Linden 8;72762;Reutlingen;Ronny Gornik;0151 52100086;8;Mi;21.02.2024;10:35;11:35;geplant;Ronny Gornik
+;MediaMarkt;Im Wendelrot 5;76646;Bruchsal;Ronny Gornik;0151 52100086;8;Do;22.02.2024;08:50;09:50;geplant;Ronny Gornik
+;MediaMarkt;Unterweingartenfeld 4;76135;Karlsruhe;Ronny Gornik;0151 52100086;8;Do;22.02.2024;10:15;11:15;geplant;Ronny Gornik
+;MediaMarkt;Gewerbepark Cite 7;76532;Baden-Baden;Ronny Gornik;0151 52100086;8;Fr;23.02.2024;08:55;09:55;geplant;Ronny Gornik
+;Expert;Güterstraße 8;77815;Bühl;Ronny Gornik;0151 52100086;8;Fr;23.02.2024;10:15;11:15;geplant;Ronny Gornik
+;MediaMarkt;Heinrich-Hertz-Straße 6;77656;Offenburg;Ronny Gornik;0151 52100086;8;Fr;23.02.2024;11:50;12:50;geplant;Ronny Gornik
+;MediaMarkt;Hedwig-Laudien-Ring 2;67071;Ludwigshafen am Rhein;Ronny Gornik;0151 52100086;9;Mo;26.02.2024;10:25;11:25;geplant;Ronny Gornik
+;MediaMarkt;Wormser Landstraße 94;67346;Speyer;Ronny Gornik;0151 52100086;9;Mo;26.02.2024;11:50;12:50;geplant;Ronny Gornik
+;MediaMarkt;Chemnitzer Straße 33;67433;Neustadt an der Weinstraße;Ronny Gornik;0151 52100086;9;Mo;26.02.2024;13:50;14:50;geplant;Ronny Gornik
+;MediaMarkt;Klaus-von-Klitzing-Straße 5;76829;Landau in der Pfalz;Ronny Gornik;0151 52100086;9;Mo;26.02.2024;15:10;16:10;geplant;Ronny Gornik
+;MediaMarkt;Haiterbacher Straße 66;72202;Nagold;Ronny Gornik;0151 52100086;9;Di;27.02.2024;09:30;10:30;geplant;Ronny Gornik
+;HEM expert Mössingen;Maybachstraße 3;72116;Mössingen;Ronny Gornik;0151 52100086;9;Di;27.02.2024;11:15;12:15;geplant;Ronny Gornik
+;MediaMarkt;Sonnenstraße 30;72458;Albstadt;Ronny Gornik;0151 52100086;9;Di;27.02.2024;13:25;14:25;geplant;Ronny Gornik
+;MediaMarkt;Schwenninger Straße 38;78073;Bad Dürrheim;Ronny Gornik;0151 52100086;9;Di;27.02.2024;15:20;16:20;geplant;Ronny Gornik
+;SATURN;Marstall 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;9;Mi;28.02.2024;09:20;10:20;geplant;Ronny Gornik
+;expert Techno-Land;Sirnauer Straße 56;73779;Deizisau;Ronny Gornik;0151 52100086;9;Mi;28.02.2024;11:00;12:00;geplant;Ronny Gornik
+;MediaMarkt;Schneckenburgstraße 2;78467;Konstanz;Ronny Gornik;0151 52100086;9;Do;29.02.2024;09:35;10:35;geplant;Ronny Gornik
+;MediaMarkt;Unter den Tannen 3;78224;Singen;Ronny Gornik;0151 52100086;9;Do;29.02.2024;11:05;12:05;geplant;Ronny Gornik
+;MediaMarkt;Bürgermeister-Neff-Straße 17;68519;Viernheim;Ronny Gornik;0151 52100086;9;Fr;01.03.2024;09:20;10:20;geplant;Ronny Gornik
+;MediaMarkt;Bergstraße 7.1;69469;Weinheim;Ronny Gornik;0151 52100086;9;Fr;01.03.2024;10:35;11:35;geplant;Ronny Gornik
+;MediaMarkt;Hertzstraße 1;69126;Heidelberg;Ronny Gornik;0151 52100086;9;Fr;01.03.2024;12:05;13:05;geplant;Ronny Gornik
+;MediaMarkt;Schönauer Straße 14;67547;Worms;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;10:35;11:35;geplant;Ronny Gornik
+;MediaMarkt;Karl-Heinz-Kipp-Straße 23;55232;Alzey;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;12:30;13:30;geplant;Ronny Gornik
+;MediaMarkt;Neben dem Mühlweg 4b;65474;Bischofsheim;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;14:00;15:00;geplant;Ronny Gornik
+;SATURN;Am Brand 41;55116;Mainz;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;15:20;16:20;geplant;Ronny Gornik
+;EURONICS XXL Sinn GmbH Öhringen;Austraße 14;74613;Öhringen;Ronny Gornik;0151 52100086;10;Di;05.03.2024;09:45;10:45;geplant;Ronny Gornik
+;MediaMarkt;Pfalzgraf-Otto-Straße 52-54;74821;Mosbach;Ronny Gornik;0151 52100086;10;Di;05.03.2024;11:35;12:35;geplant;Ronny Gornik
+;MediaMarkt;Q7 23;68161;Mannheim;Ronny Gornik;0151 52100086;10;Di;05.03.2024;14:10;15:10;geplant;Ronny Gornik
+;MediaMarkt;Tiergartenstraße 7;64646;Heppenheim (Bergstraße);Ronny Gornik;0151 52100086;10;Di;05.03.2024;15:40;16:40;geplant;Ronny Gornik
+;MediaMarkt;Weilstraße 227;73733;Esslingen am Neckar;Ronny Gornik;0151 52100086;10;Mi;06.03.2024;08:55;09:55;geplant;Ronny Gornik
+;MediaMarkt;Steinbeisstraße 2;73054;Eislingen/Fils;Ronny Gornik;0151 52100086;10;Do;07.03.2024;08:00;09:00;geplant;Ronny Gornik
+;MediaMarkt;Gänsbühl 2;88212;Ravensburg;Ronny Gornik;0151 52100086;10;Do;07.03.2024;11:00;12:00;geplant;Ronny Gornik
+;MediaMarkt;Hohenecker Straße 26;67663;Kaiserslautern;Ronny Gornik;0151 52100086;10;Fr;08.03.2024;10:00;11:00;geplant;Ronny Gornik
+;MediaMarkt;Zweibrücker Straße 232;66954;Pirmasens;Ronny Gornik;0151 52100086;10;Fr;08.03.2024;11:35;12:35;geplant;Ronny Gornik
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;6;Di;06.02.2024;19:27;19:27;durchgeführt;Frank Friedrich
+;MediaMarkt;Nedderfeld 70;22529;Hamburg;Frank Friedrich;0151 52100097;6;Mi;07.02.2024;16:10;16:10;durchgeführt;Frank Friedrich
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;6;Mi;07.02.2024;16:11;16:11;durchgeführt;Frank Friedrich
+;MEDIA MARKT ERFURT;Nordhäuser Straße 73t;99091;Erfurt;Paul Janzen;0151 52100084;6;Do;08.02.2024;11:48;11:48;durchgeführt;Paul Janzen
+;MediaMarkt;Pferdemarkt 1;99734;Nordhausen;Paul Janzen;0151 52100084;6;Do;08.02.2024;13:08;13:08;durchgeführt;Paul Janzen
+;MediaMarkt;Hannoversche Straße 53c;37075;Göttingen;Paul Janzen;0151 52100084;6;Do;08.02.2024;14:17;14:17;durchgeführt;Paul Janzen
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;6;Mo;05.02.2024;09:00;16:00;durchgeführt;Hakim Kouji
+;ROYAL5 Sales GmbH;Schnabelstr. 1;45134;Essen;Hakim Kouji;0151 52100043;6;Di;06.02.2024;10:00;15:00;durchgeführt;Hakim Kouji
+;euronicsXXL Johann+Wittmer;Kaiserswerther Straße 95;40880;Ratingen;Hakim Kouji;0151 52100043;6;Mi;07.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Friedrichstraße 129-133;40217;Düsseldorf;Hakim Kouji;0151 52100043;6;Mi;07.02.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Metro-Straße 16;40235;Düsseldorf;Hakim Kouji;0151 52100043;6;Mi;07.02.2024;16:00;17:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Friedrich-Engels-Allee 34;42103;Wuppertal;Hakim Kouji;0151 52100043;6;Do;08.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Neumarkt 1;42103;Wuppertal;Hakim Kouji;0151 52100043;6;Do;08.02.2024;12:00;13:00;durchgeführt;Hakim Kouji
+;SATURN;Kölner Straße 99;42651;Solingen;Hakim Kouji;0151 52100043;6;Do;08.02.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Poppenbütteler Weg 31;22339;Hamburg;Frank Friedrich;0151 52100097;6;Do;08.02.2024;10:10;10:45;bestätigt;Frank Friedrich
+;SATURN;Königsplatz 61;34117;Kassel;Paul Janzen;0151 52100084;6;Fr;09.02.2024;10:26;10:26;durchgeführt;Paul Janzen
+;MediaMarkt;Knorrstraße 28;34134;Kassel;Paul Janzen;0151 52100084;6;Fr;09.02.2024;11:32;11:32;durchgeführt;Paul Janzen
+;Lager Ronny;Im Hafer 20;71636;Ludwigsburg;Ronny Gornik;0151 52100086;6;Fr;09.02.2024;11:34;11:34;durchgeführt;Ronny Gornik
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;6;Fr;09.02.2024;12:41;12:41;durchgeführt;Paul Janzen
+;SATURN;Warrington-Platz 10;40721;Hilden;Hakim Kouji;0151 52100043;6;Fr;09.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Königsallee 56;40212;Düsseldorf;Hakim Kouji;0151 52100043;6;Fr;09.02.2024;10:00;11:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Paul-Nevermann-Platz 15;22765;Hamburg;Frank Friedrich;0151 52100097;6;Fr;09.02.2024;17:27;17:27;durchgeführt;Frank Friedrich
+;MediaMarkt;Billstedter Hauptstraße 37j;22111;Hamburg;Frank Friedrich;0151 52100097;6;Fr;09.02.2024;17:28;17:28;durchgeführt;Frank Friedrich
+;Lager Ronny;Im Hafer 20;71636;Ludwigsburg;Ronny Gornik;0151 52100086;7;Mo;12.02.2024;11:46;11:46;durchgeführt;Ronny Gornik
+;Mediamarkt;Kamp 50;49074;Osnabrück;Paul Janzen;0151 52100084;7;Mo;12.02.2024;13:17;13:17;durchgeführt;Paul Janzen
+;Expert;Hannoversche Straße 82-88;49084;Osnabrück;Paul Janzen;0151 52100084;7;Mo;12.02.2024;13:18;13:18;durchgeführt;Paul Janzen
+;expert Brilon;Freiladestraße 17;59929;Brilon;Paul Janzen;0151 52100084;7;Mo;12.02.2024;14:00;14:00;durchgeführt;Paul Janzen
+;MediaMarkt;Heinkelstraße 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;7;Mo;12.02.2024;15:07;15:07;durchgeführt;Ronny Gornik
+;expert MegaLand Bad Segeberg;Eutiner Straße 26;23795;Bad Segeberg;Frank Friedrich;0151 52100097;7;Mo;12.02.2024;20:33;20:33;durchgeführt;Frank Friedrich
+;expert Megaland Bad Oldesloe;Industriestraße 37;23843;Bad Oldesloe;Frank Friedrich;0151 52100097;7;Mo;12.02.2024;20:34;20:34;durchgeführt;Frank Friedrich
+;MediaMarkt;Friedrich-Engels-Allee 34;42103;Wuppertal;Hakim Kouji;0151 52100043;7;Mo;12.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Alleestraße 74;42853;Remscheid;Hakim Kouji;0151 52100043;7;Mo;12.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Kölner Straße 99;42651;Solingen;Hakim Kouji;0151 52100043;7;Mo;12.02.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;Lager 24/7 (Lager Paul);Pamplonastraße 9;33106;Paderborn;Paul Janzen;0151 52100084;7;Di;13.02.2024;16:13;16:13;durchgeführt;Paul Janzen
+;MediaMarkt;Kirchweg 88;24558;Henstedt-Ulzburg;Frank Friedrich;0151 52100097;7;Di;13.02.2024;18:33;18:33;durchgeführt;Frank Friedrich
+;EURONICS XXL Alsfeld;Löbergasse 5;36304;Alsfeld;Paul Janzen;0151 52100084;7;Mi;14.02.2024;12:04;12:04;durchgeführt;Paul Janzen
+;EURONICS XXL Lauterbach;Umgehungsstraße 45;36341;Lauterbach;Paul Janzen;0151 52100084;7;Mi;14.02.2024;12:05;12:05;durchgeführt;Paul Janzen
+;Euronics;Hünfelder Str. 69;36251;Bad Hersfeld;Paul Janzen;0151 52100084;7;Mi;14.02.2024;12:45;12:45;durchgeführt;Paul Janzen
+;expert klein;Gutenbergstraße 2;36251;Bad Hersfeld;Paul Janzen;0151 52100084;7;Mi;14.02.2024;13:06;13:06;durchgeführt;Paul Janzen
+;MediaMarkt;Nedderfeld 70;22529;Hamburg;Frank Friedrich;0151 52100097;7;Mi;14.02.2024;16:10;16:10;durchgeführt;Frank Friedrich
+;MEDIMAX Weißenfels;Am Marktwege 2;06667;Weißenfels;Marco Kolibius;0174 3458679;7;Do;15.02.2024;11:38;11:38;durchgeführt;Marco Kolibius
+;MediaMarkt;Feldstraße 32;32457;Porta Westfalica;Paul Janzen;0151 52100084;7;Do;15.02.2024;13:10;13:10;durchgeführt;Paul Janzen
+;SATURN;Mindener Straße 22;32547;Bad Oeynhausen;Paul Janzen;0151 52100084;7;Do;15.02.2024;14:19;14:19;durchgeführt;Paul Janzen
+;MediaMarkt;Weberstraße 1;49191;Belm;Paul Janzen;0151 52100084;7;Do;15.02.2024;14:50;14:50;durchgeführt;Paul Janzen
+;MediaMarkt;Hintern Brüdern 27-30;38100;Braunschweig;Frank Friedrich;0151 52100097;7;Do;15.02.2024;16:49;16:49;durchgeführt;Frank Friedrich
+;MediaMarkt;Willinghusener Weg 1;22113;Oststeinbek;Frank Friedrich;0151 52100097;7;Do;15.02.2024;16:50;16:50;durchgeführt;Frank Friedrich
+;SATURN;Neusser Straße 35;47798;Krefeld;Hakim Kouji;0151 52100043;7;Do;15.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;Expert;Kampstraße 34-36;58095;Hagen;Hakim Kouji;0151 52100043;7;Di;13.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;SATURN;Maybachstraße 115;50670;Köln;Hakim Kouji;0151 52100043;7;Mi;14.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Friedrichstraße 129-133;40217;Düsseldorf;Hakim Kouji;0151 52100043;7;Fr;16.02.2024;10:00;12:00;durchgeführt;Hakim Kouji
+;Expert;Im Taubental 36;41468;Neuss;Hakim Kouji;0151 52100043;7;Fr;16.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;expert Dormagen;Lübecker Straße 1;41540;Dormagen;Hakim Kouji;0151 52100043;7;Fr;16.02.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;EURONICS Berlet Hamm;Gustav-Heinemann-Straße 1;59065;Hamm;Hakim Kouji;0151 52100043;7;Di;13.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;Euronics Berlet Unna;Hans-Böckler-Straße 4;59423;Unna;Hakim Kouji;0151 52100043;7;Di;13.02.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Hohe Straße 46-50;50667;Köln;Hakim Kouji;0151 52100043;7;Mi;14.02.2024;12:00;13:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Max-Planck-Straße 24;50858;Köln;Hakim Kouji;0151 52100043;7;Mi;14.02.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Blumentalstraße 151-155;47803;Krefeld;Hakim Kouji;0151 52100043;7;Do;15.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Konrad-Adenauer-Ring 95;41464;Neuss;Hakim Kouji;0151 52100043;7;Do;15.02.2024;15:00;16:00;durchgeführt;Hakim Kouji
+;SATURN;Evinger Straße 170;44339;Dortmund;Hakim Kouji;0151 52100043;6;Fr;09.02.2024;10:00;11:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Engersche Straße 96;33611;Bielefeld;Paul Janzen;0151 52100084;7;Fr;16.02.2024;12:41;12:41;durchgeführt;Paul Janzen
+;SATURN;Bahnhofstraße 27a;33602;Bielefeld;Paul Janzen;0151 52100084;7;Fr;16.02.2024;12:42;12:42;durchgeführt;Paul Janzen
+;MediaMarkt;Vennstraße 40;33330;Gütersloh;Paul Janzen;0151 52100084;7;Fr;16.02.2024;12:43;12:43;durchgeführt;Paul Janzen
+;EURONICS XXL Bücker;Dammstraße 39;33332;Gütersloh;Paul Janzen;0151 52100084;7;Fr;16.02.2024;12:43;12:43;durchgeführt;Paul Janzen
+;MediaMarkt;Gänsemarkt 1;24534;Neumünster;Frank Friedrich;0151 52100097;7;Fr;16.02.2024;15:45;15:45;durchgeführt;Frank Friedrich
+;expert Neumünster;Haart 190;24539;Neumünster;Frank Friedrich;0151 52100097;7;Fr;16.02.2024;15:46;15:46;durchgeführt;Frank Friedrich
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;8;Mo;19.02.2024;10:00;15:00;durchgeführt;Hakim Kouji
+;Euronics Berlet Arnsberg-Neheim;Stembergstraße 60;59755;Arnsberg;Paul Janzen;0151 52100084;8;Mo;19.02.2024;12:39;12:39;durchgeführt;Paul Janzen
+;expert Soest;Senator-Schwartz-Ring 24;59494;Soest;Paul Janzen;0151 52100084;8;Mo;19.02.2024;13:16;13:16;durchgeführt;Paul Janzen
+;Euronics Berlet Soest;Opmünder Weg 65-67;59494;Soest;Paul Janzen;0151 52100084;8;Mo;19.02.2024;13:28;13:28;durchgeführt;Paul Janzen
+;EURONICS XXL Eickhoff;Külbe 16-22;59581;Warstein;Paul Janzen;0151 52100084;8;Mo;19.02.2024;14:22;14:22;durchgeführt;Paul Janzen
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;8;Mo;19.02.2024;17:55;17:55;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;8;Mo;19.02.2024;17:57;17:57;durchgeführt;Frank Friedrich
+;expert Neustadt am Rübenberge;Justus-von-Liebig-Straße 19;31535;Neustadt am Rübenberge;Paul Janzen;0151 52100084;8;Di;20.02.2024;14:46;14:46;durchgeführt;Paul Janzen
+;MediaMarkt;Nordring 2;21244;Buchholz in der Nordheide;Frank Friedrich;0151 52100097;8;Di;20.02.2024;15:58;15:58;durchgeführt;Frank Friedrich
+;Dodenhof;Posthausen 1;28870;Ottersberg;Frank Friedrich;0151 52100097;8;Di;20.02.2024;16:00;16:00;durchgeführt;Frank Friedrich
+;MediaMarkt;Feldstraße 32;32457;Porta Westfalica;Paul Janzen;0151 52100084;8;Di;20.02.2024;16:15;16:15;durchgeführt;Paul Janzen
+;EURONICS XXL Einbeck;Altendorfer Tor 20;37574;Einbeck;Paul Janzen;0151 52100084;8;Mi;21.02.2024;12:42;12:42;durchgeführt;Paul Janzen
+;expert Einbeck;Walter-Poser-Straße 4;37574;Einbeck;Paul Janzen;0151 52100084;8;Mi;21.02.2024;12:56;12:56;durchgeführt;Paul Janzen
+;MediaMarkt;Humboldtstraße 4;37603;Holzminden;Paul Janzen;0151 52100084;8;Mi;21.02.2024;14:07;14:07;durchgeführt;Paul Janzen
+;expert Holzminden;Bülte 8;37603;Holzminden;Paul Janzen;0151 52100084;8;Mi;21.02.2024;14:23;14:23;durchgeführt;Paul Janzen
+;MediaMarkt;Poppenbütteler Weg 31;22339;Hamburg;Frank Friedrich;0151 52100097;8;Mi;21.02.2024;16:26;16:26;durchgeführt;Frank Friedrich
+;MediaMarkt;Neustadt 28;35390;Gießen;Paul Janzen;0151 52100084;8;Do;22.02.2024;11:34;11:34;durchgeführt;Paul Janzen
+;SATURN;Gottlieb-Daimler-Straße 27;35398;Gießen;Paul Janzen;0151 52100084;8;Do;22.02.2024;12:26;12:26;durchgeführt;Paul Janzen
+;Expert;Herwigstraße 30;35683;Dillenburg;Paul Janzen;0151 52100084;8;Do;22.02.2024;13:08;13:08;durchgeführt;Paul Janzen
+;MediaMarkt;Schanzenstraße 11;25746;Heide;Frank Friedrich;0151 52100097;8;Do;22.02.2024;17:11;17:11;durchgeführt;Frank Friedrich
+;MediaMarkt;Otto-F.-Alsen-Straße 2;25524;Itzehoe;Frank Friedrich;0151 52100097;8;Do;22.02.2024;17:12;17:12;durchgeführt;Frank Friedrich
+;MediaMarkt;Südertor 1;59557;Lippstadt;Paul Janzen;0151 52100084;8;Fr;23.02.2024;14:28;14:28;durchgeführt;Paul Janzen
+;EURONICS Lippstadt;Blumenstraße 8;59555;Lippstadt;Paul Janzen;0151 52100084;8;Fr;23.02.2024;14:28;14:28;durchgeführt;Paul Janzen
+;MediaMarkt;Pohlweg 110;33100;Paderborn;Paul Janzen;0151 52100084;8;Fr;23.02.2024;14:29;14:29;durchgeführt;Paul Janzen
+;Expert;Bayernweg 60-64;33102;Paderborn;Paul Janzen;0151 52100084;8;Fr;23.02.2024;14:29;14:29;durchgeführt;Paul Janzen
+;MediaMarkt;Ramskamp 98;25337;Elmshorn;Frank Friedrich;0151 52100097;8;Fr;23.02.2024;17:09;17:09;durchgeführt;Frank Friedrich
+;Expert;Ramskamp 103;25337;Elmshorn;Frank Friedrich;0151 52100097;8;Fr;23.02.2024;17:10;17:10;durchgeführt;Frank Friedrich
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;8;Fr;23.02.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Expert;Roitzheimer Straße 117;53879;Euskirchen;Hakim Kouji;0151 52100043;8;Do;22.02.2024;10:00;11:00;durchgeführt;Hakim Kouji
+;Expert;Roitzheimer Straße 117;53879;Euskirchen;Hakim Kouji;0151 52100043;8;Di;20.02.2024;10:00;11:00;durchgeführt;Hakim Kouji
+;SATURN;Veybachstraße 3;53879;Euskirchen;Hakim Kouji;0151 52100043;8;Di;20.02.2024;12:00;13:00;durchgeführt;Hakim Kouji
+;EURONICS XXL Urfey;Monzenbend 6;53894;Mechernich;Hakim Kouji;0151 52100043;8;Di;20.02.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;8;Mi;21.02.2024;11:00;12:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Metro-Straße 16;40235;Düsseldorf;Hakim Kouji;0151 52100043;8;Do;22.02.2024;11:00;15:00;durchgeführt;Hakim Kouji
+;MediaMarkt;Gladbecker Straße 413;45326;Essen;Hakim Kouji;0151 52100043;8;Mi;21.02.2024;13:00;14:00;durchgeführt;Hakim Kouji
+;SATURN;Humboldtring 13;45472;Mülheim an der Ruhr;Hakim Kouji;0151 52100043;8;Mi;21.02.2024;14:00;15:00;durchgeführt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;8;Fr;23.02.2024;09:00;13:00;durchgeführt;Hakim Kouji
+;expert HERFAG Elektrotechnik GmbH;An der Burg 25;99974;Mühlhausen;Paul Janzen;0151 52100084;9;Mo;26.02.2024;16:16;16:16;durchgeführt;Paul Janzen
+;Euronics;Ammersche Landstr. 27-30;99974;Mühlhausen;Paul Janzen;0151 52100084;9;Mo;26.02.2024;16:16;16:16;durchgeführt;Paul Janzen
+;MediaMarkt;Industriestraße 4;98544;Zella-Mehlis;Paul Janzen;0151 52100084;9;Mo;26.02.2024;16:22;16:22;durchgeführt;Paul Janzen
+;MediaMarkt;Gärtnerstraße 169;25469;Halstenbek;Frank Friedrich;0151 52100097;9;Mo;26.02.2024;17:32;17:32;durchgeführt;Frank Friedrich
+;SATURN;Julius-Brecht-Straße 12;22609;Hamburg;Frank Friedrich;0151 52100097;9;Mo;26.02.2024;17:34;17:34;durchgeführt;Frank Friedrich
+;Lager Ronny;Im Hafer 20;71636;Ludwigsburg;Ronny Gornik;0151 52100086;9;Mo;26.02.2024;20:55;20:55;durchgeführt;Ronny Gornik
+;MediaMarkt;Pferdemarkt 1;99734;Nordhausen;Paul Janzen;0151 52100084;9;Di;27.02.2024;11:32;11:32;durchgeführt;Paul Janzen
+;expert HERFAG Elektrotechnik GmbH;Landgrabenstraße 6A;99734;Nordhausen;Paul Janzen;0151 52100084;9;Di;27.02.2024;12:58;12:58;durchgeführt;Paul Janzen
+;Expert;Lutherstraße 23;37327;Leinefelde;Paul Janzen;0151 52100084;9;Di;27.02.2024;13:34;13:34;durchgeführt;Paul Janzen
+;Expert;Heuweg 2;26389;Wilhelmshaven;Frank Friedrich;0151 52100097;9;Di;27.02.2024;17:49;17:49;durchgeführt;Frank Friedrich
+;MediaMarkt;3-K-Weg 25a;28816;Stuhr;Frank Friedrich;0151 52100097;9;Di;27.02.2024;17:50;17:50;durchgeführt;Frank Friedrich
+;EURONICS XXL Sinn GmbH Öhringen;Austraße 14;74613;Öhringen;Ronny Gornik;0151 52100086;9;Mi;28.02.2024;10:37;10:37;durchgeführt;Ronny Gornik
+;SATURN;Louisenstraße 90;61348;Bad Homburg vor der Höhe;Paul Janzen;0151 52100084;9;Mi;28.02.2024;14:04;14:04;durchgeführt;Paul Janzen
+;SATURN;Odenwaldring 70;63069;Offenbach;Paul Janzen;0151 52100084;9;Mi;28.02.2024;14:04;14:04;durchgeführt;Paul Janzen
+;MediaMarkt;Gänsemarkt 1;24534;Neumünster;Frank Friedrich;0151 52100097;9;Mi;28.02.2024;17:17;17:17;durchgeführt;Frank Friedrich
+;expert Neumünster;Haart 190;24539;Neumünster;Frank Friedrich;0151 52100097;9;Mi;28.02.2024;17:18;17:18;durchgeführt;Frank Friedrich
+;expert MegaLand Bad Segeberg;Eutiner Straße 26;23795;Bad Segeberg;Frank Friedrich;0151 52100097;9;Mi;28.02.2024;17:20;17:20;durchgeführt;Frank Friedrich
+;MediaMarkt;Offenbacher Straße 9;63128;Dietzenbach;Paul Janzen;0151 52100084;9;Mi;28.02.2024;17:28;17:28;durchgeführt;Paul Janzen
+;Mediamarkt;Kamp 50;49074;Osnabrück;Paul Janzen;0151 52100084;9;Do;29.02.2024;14:13;14:13;durchgeführt;Paul Janzen
+;Expert;Hannoversche Straße 82-88;49084;Osnabrück;Paul Janzen;0151 52100084;9;Do;29.02.2024;14:14;14:14;durchgeführt;Paul Janzen
+;MediaMarkt;Weberstraße 1;49191;Belm;Paul Janzen;0151 52100084;9;Do;29.02.2024;14:14;14:14;durchgeführt;Paul Janzen
+;MediaMarkt;Dänischburger Landstraße 81;23569;Lübeck;Frank Friedrich;0151 52100097;9;Do;29.02.2024;17:59;17:59;durchgeführt;Frank Friedrich
+;MediaMarkt;Herrenholz 14;23556;Lübeck;Frank Friedrich;0151 52100097;9;Do;29.02.2024;17:59;17:59;durchgeführt;Frank Friedrich
+;SATURN;Königsplatz 61;34117;Kassel;Paul Janzen;0151 52100084;9;Fr;01.03.2024;14:02;14:02;durchgeführt;Paul Janzen
+;MediaMarkt;Knorrstraße 28;34134;Kassel;Paul Janzen;0151 52100084;9;Fr;01.03.2024;14:02;14:02;durchgeführt;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;9;Fr;01.03.2024;14:04;14:04;durchgeführt;Paul Janzen
+;MediaMarkt;Friedrich-Ebert-Damm 110;22047;Hamburg;Frank Friedrich;0151 52100097;9;Fr;01.03.2024;16:15;16:15;durchgeführt;Frank Friedrich
+;MediaMarkt;Paul-Nevermann-Platz 15;22765;Hamburg;Frank Friedrich;0151 52100097;9;Fr;01.03.2024;16:16;16:16;durchgeführt;Frank Friedrich
+;Lager Ronny;Im Hafer 20;71636;Ludwigsburg;Ronny Gornik;0151 52100086;9;Fr;01.03.2024;16:40;16:40;durchgeführt;Ronny Gornik
+;MediaMarkt;Äußere Bayreuther Straße 80;90491;Nürnberg;Robin Schürmann;0151 52100073;10;Mo;04.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;expert Schlagenhauf;Adolph-Kolping-Straße 3B;91781;Weißenburg in Bayern;Robin Schürmann;0151 52100073;10;Mo;04.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Steinbeisstraße 2;73054;Eislingen/Fils;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;10:18;10:18;durchgeführt;Ronny Gornik
+;MediaMarkt NUERNBERG LANGWASSER;Oppelner Straße 213;90473;Nürnberg;Robin Schürmann;0151 52100073;10;Mo;04.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Kirchstraße 34;72622;Nürtingen;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;13:21;13:21;durchgeführt;Ronny Gornik
+;;;;;Robin Schürmann;0151 52100073;6;Mo;05.02.2024;;;Urlaub;Robin Schürmann
+;MediaMarkt;Stuttgarter Straße 1;73230;Kirchheim unter Teck;Ronny Gornik;0151 52100086;10;Mo;04.03.2024;13:49;13:49;durchgeführt;Ronny Gornik
+;MediaMarkt;Engersche Straße 96;33611;Bielefeld;Paul Janzen;0151 52100084;10;Mo;04.03.2024;13:54;13:54;durchgeführt;Paul Janzen
+;;;;;Robin Schürmann;0151 52100073;13;Mo;25.03.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;13;Di;26.03.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;13;Mi;27.03.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;13;Do;28.03.2024;;;Urlaub;Robin Schürmann
+;;;;;Robin Schürmann;0151 52100073;10;Fr;08.03.2024;;;Urlaub;Robin Schürmann
+;SATURN;Bahnhofstraße 27a;33602;Bielefeld;Paul Janzen;0151 52100084;10;Mo;04.03.2024;13:55;13:55;durchgeführt;Paul Janzen
+;Expert;Hansestraße 1;33689;Bielefeld;Paul Janzen;0151 52100084;10;Mo;04.03.2024;13:55;13:55;durchgeführt;Paul Janzen
+;;;;;Hakim Kouji;0151 52100043;9;Mo;26.02.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;9;Di;27.02.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;9;Mi;28.02.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;9;Do;29.02.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;9;Fr;01.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;10;Mo;04.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;10;Di;05.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;10;Mi;06.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;10;Do;07.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;10;Fr;08.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;11;Mo;11.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;11;Di;12.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;11;Mi;13.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;;;;;Hakim Kouji;0151 52100043;11;Do;14.03.2024;09:00;13:00;Urlaub;Hakim Kouji
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;10;Di;05.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;10;Mi;06.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;10;Do;07.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;10;Fr;08.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;11;Mo;11.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;11;Di;12.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;SATURN;Fuldastraße 1-5;34225;Baunatal;Paul Janzen;0151 52100084;11;Mi;13.03.2024;14:04;14:04;Urlaub;Paul Janzen
+;MediaMarkt;Schanzenstraße 11;25746;Heide;Frank Friedrich;0151 52100097;10;Mo;04.03.2024;16:25;16:25;durchgeführt;Frank Friedrich
+;MediaMarkt;Otto-F.-Alsen-Straße 2;25524;Itzehoe;Frank Friedrich;0151 52100097;10;Mo;04.03.2024;16:26;16:26;durchgeführt;Frank Friedrich
+;MediaMarkt;Maria-Probst-Straße 6;80939;München;Robin Schürmann;0151 52100073;10;Di;05.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Einsteinstraße 130;81675;München;Robin Schürmann;0151 52100073;10;Di;05.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Neuhauser Straße 39;80331;München;Robin Schürmann;0151 52100073;10;Di;05.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Eriagstraße 28;85053;Ingolstadt;Robin Schürmann;0151 52100073;10;Mi;06.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Am Westpark 7;85057;Ingolstadt;Robin Schürmann;0151 52100073;10;Mi;06.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;SATURN;Karlsruher Straße 51-57;75179;Pforzheim;Ronny Gornik;0151 52100086;10;Di;05.03.2024;13:34;13:34;durchgeführt;Ronny Gornik
+;MediaMarkt;Wilhelm-Becker-Straße 15;75179;Pforzheim;Ronny Gornik;0151 52100086;10;Di;05.03.2024;13:55;13:55;durchgeführt;Ronny Gornik
+;SATURN;Bergedorfer Straße 106;21029;Hamburg;Frank Friedrich;0151 52100097;10;Di;05.03.2024;18:14;18:14;durchgeführt;Frank Friedrich
+;MediaMarkt;Willinghusener Weg 1;22113;Oststeinbek;Frank Friedrich;0151 52100097;10;Di;05.03.2024;18:16;18:16;durchgeführt;Frank Friedrich
+;MediaMarkt;Heinkelstraße 1;71634;Ludwigsburg;Ronny Gornik;0151 52100086;10;Mi;06.03.2024;11:38;11:38;durchgeführt;Ronny Gornik
+;SATURN;Vordere Ledergasse 30;90403;Nürnberg;Robin Schürmann;0151 52100073;10;Do;07.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;AG-Weser-Straße 3;28237;Bremen;Frank Friedrich;0151 52100097;10;Mi;06.03.2024;16:59;16:59;durchgeführt;Frank Friedrich
+;MediaMarkt;Hans-Bredow-Straße 19;28307;Bremen;Frank Friedrich;0151 52100097;10;Mi;06.03.2024;17:00;17:00;durchgeführt;Frank Friedrich
+;MediaMarkt;Virnsberger Straße 2-4;90431;Nürnberg;Robin Schürmann;0151 52100073;10;Do;07.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;10;Do;07.03.2024;17:28;17:28;durchgeführt;Frank Friedrich
+;SATURN;Residenzstraße 2-6;91522;Ansbach;Robin Schürmann;0151 52100073;10;Do;07.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Bühlstraße 140;70736;Fellbach;Ronny Gornik;0151 52100086;10;Fr;08.03.2024;11:24;11:24;durchgeführt;Ronny Gornik
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;10;Fr;08.03.2024;17:26;17:26;durchgeführt;Frank Friedrich
+;SATURN;Klosterrunsstraße 4;79379;Müllheim;Ronny Gornik;0151 52100086;11;Mo;11.03.2024;11:50;11:50;durchgeführt;Ronny Gornik
+;MediaMarkt;Am Elzdamm 61;79312;Emmendingen;Ronny Gornik;0151 52100086;11;Mo;11.03.2024;12:54;12:54;durchgeführt;Ronny Gornik
+;Expert;Dresdner Straße 7;82110;Germering;Robin Schürmann;0151 52100073;11;Mo;11.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;11;Mo;11.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Hannoversche Straße 86;21079;Hamburg;Frank Friedrich;0151 52100097;11;Mo;11.03.2024;17:45;17:45;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;11;Mo;11.03.2024;17:47;17:47;durchgeführt;Frank Friedrich
+;MediaMarkt;Münchener Straße 75;82362;Weilheim in Oberbayern;Robin Schürmann;0151 52100073;11;Di;12.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Euronics XXL Memmingen;Fraunhoferstraße 8;87700;Memmingen;Robin Schürmann;0151 52100073;11;Di;12.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Fraunhoferstraße 9;87700;Memmingen;Robin Schürmann;0151 52100073;11;Di;12.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Am Penzinger Feld 21;86899;Landsberg am Lech;Robin Schürmann;0151 52100073;11;Di;12.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Marienplatz 5-7;19053;Schwerin;Frank Friedrich;0151 52100097;11;Di;12.03.2024;17:31;17:31;durchgeführt;Frank Friedrich
+;Expert;Grabenstraße 1;19061;Schwerin;Frank Friedrich;0151 52100097;11;Di;12.03.2024;17:32;17:32;durchgeführt;Frank Friedrich
+;MEDIMAX Wismar;Marktstraße 1;23968;Gägelow;Frank Friedrich;0151 52100097;11;Di;12.03.2024;17:32;17:32;durchgeführt;Frank Friedrich
+;MediaMarkt;Drygalski-Allee 31;81477;München;Robin Schürmann;0151 52100073;11;Mi;13.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;Euronics Berlet Lüdenscheid;Wefelshohler Straße 1;58511;Lüdenscheid;Peter Grosse;0174 3136269;11;Mi;13.03.2024;14:45;14:45;durchgeführt;Peter Grosse
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;11;Mi;13.03.2024;19:00;19:00;durchgeführt;Frank Friedrich
+;SATURN;Willy-Brandt-Platz 5;81829;München;Robin Schürmann;0151 52100073;11;Mi;13.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MyPlace - SelfStorage (Lager Robin);Bodenseestraße 171;81243;München;Robin Schürmann;0151 52100073;11;Mi;13.03.2024;12:00;12:00;durchgeführt;Robin Schürmann
+;MediaMarkt;Paul-Nevermann-Platz 15;22765;Hamburg;Frank Friedrich;0151 52100097;12;Mo;18.03.2024;17:50;17:50;durchgeführt;Frank Friedrich
+;SATURN;Julius-Brecht-Straße 12;22609;Hamburg;Frank Friedrich;0151 52100097;12;Mo;18.03.2024;17:51;17:51;durchgeführt;Frank Friedrich
+;MediaMarkt;Hannoversche Straße 86;21079;Hamburg;Frank Friedrich;0151 52100097;12;Di;19.03.2024;17:09;17:09;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;12;Di;19.03.2024;17:10;17:10;durchgeführt;Frank Friedrich
+;MediaMarkt;Friedrich-Ebert-Damm 110;22047;Hamburg;Frank Friedrich;0151 52100097;12;Di;19.03.2024;17:11;17:11;durchgeführt;Frank Friedrich
+;SATURN;Holm 57-61;24937;Flensburg;Frank Friedrich;0151 52100097;12;Mi;20.03.2024;16:17;16:17;durchgeführt;Frank Friedrich
+;MediaMarkt;Mühlendamm 5;24113;Kiel;Frank Friedrich;0151 52100097;12;Mi;20.03.2024;16:18;16:18;durchgeführt;Frank Friedrich
+;MediaMarkt;Herrenholz 14;23556;Lübeck;Frank Friedrich;0151 52100097;12;Mi;20.03.2024;16:19;16:19;durchgeführt;Frank Friedrich
+;SATURN;Papenstraße 5;28195;Bremen;Frank Friedrich;0151 52100097;12;Do;21.03.2024;16:28;16:28;durchgeführt;Frank Friedrich
+;MediaMarkt;Hans-Bredow-Straße 19;28307;Bremen;Frank Friedrich;0151 52100097;12;Do;21.03.2024;16:30;16:30;durchgeführt;Frank Friedrich
+;MediaMarkt;AG-Weser-Straße 3;28237;Bremen;Frank Friedrich;0151 52100097;12;Do;21.03.2024;16:30;16:30;durchgeführt;Frank Friedrich
+;MediaMarkt;Nedderfeld 70;22529;Hamburg;Frank Friedrich;0151 52100097;12;Fr;22.03.2024;16:36;16:36;durchgeführt;Frank Friedrich
+;MediaMarkt;Poppenbütteler Weg 31;22339;Hamburg;Frank Friedrich;0151 52100097;12;Fr;22.03.2024;16:37;16:37;durchgeführt;Frank Friedrich
+;MediaMarkt;Gärtnerstraße 169;25469;Halstenbek;Frank Friedrich;0151 52100097;13;Mo;25.03.2024;17:24;17:24;durchgeführt;Frank Friedrich
+;MediaMarkt;Ramskamp 98;25337;Elmshorn;Frank Friedrich;0151 52100097;13;Mo;25.03.2024;17:25;17:25;durchgeführt;Frank Friedrich
+;Expert;Ramskamp 103;25337;Elmshorn;Frank Friedrich;0151 52100097;13;Mo;25.03.2024;17:25;17:25;durchgeführt;Frank Friedrich
+;Dodenhof;Posthausen 1;28870;Ottersberg;Frank Friedrich;0151 52100097;13;Di;26.03.2024;17:08;17:08;durchgeführt;Frank Friedrich
+;SATURN;Mönckebergstraße 1;20095;Hamburg;Frank Friedrich;0151 52100097;13;Di;26.03.2024;17:08;17:08;durchgeführt;Frank Friedrich
+;MediaMarkt;Posthalterweg 15;26129;Oldenburg (Oldenburg);Frank Friedrich;0151 52100097;13;Do;28.03.2024;07:50;07:50;durchgeführt;Frank Friedrich
+;MediaMarkt;Posthalterweg 15;26129;Oldenburg (Oldenburg);Frank Friedrich;0151 52100097;13;Mi;27.03.2024;10:00;10:30;bestätigt;Frank Friedrich
+;MediaMarkt;Bahnhofstraße 10;26382;Wilhelmshaven;Frank Friedrich;0151 52100097;13;Mi;27.03.2024;11:00;11:30;bestätigt;Frank Friedrich
+;MediaMarkt;Neufelder Weg 3;27619;Schiffdorf;Frank Friedrich;0151 52100097;13;Mi;27.03.2024;12:00;12:30;bestätigt;Frank Friedrich
+;SATURN;Centroallee 4;46047;Oberhausen;Hakim Kouji;0151 52100043;13;Mo;25.03.2024;10:00;12:00;bestätigt;Hakim Kouji
+;SATURN;Limbecker Platz 1a;45127;Essen;Hakim Kouji;0151 52100043;13;Mo;25.03.2024;13:00;14:00;bestätigt;Hakim Kouji
+;SATURN;Warrington-Platz 10;40721;Hilden;Hakim Kouji;0151 52100043;12;Fr;22.03.2024;11:00;12:00;bestätigt;Hakim Kouji
+;SATURN;Kölner Straße 99;42651;Solingen;Hakim Kouji;0151 52100043;12;Fr;22.03.2024;14:00;15:00;bestätigt;Hakim Kouji
+;MediaMarkt;Friedrich-Engels-Allee 34;42103;Wuppertal;Hakim Kouji;0151 52100043;12;Fr;22.03.2024;16:00;17:00;bestätigt;Hakim Kouji
+;euronicsXXL Johann+Wittmer;Kaiserswerther Straße 95;40880;Ratingen;Hakim Kouji;0151 52100043;13;Mo;25.03.2024;15:00;16:00;bestätigt;Hakim Kouji
+;LAGERBOX Düsseldorf  (Lager Hakim);Königsberger Straße 100;40231;Düsseldorf;Hakim Kouji;0151 52100043;13;Di;26.03.2024;10:00;16:00;bestätigt;Hakim Kouji
+;euronicsXXL Johann+Wittmer;Kaiserswerther Straße 95;40880;Ratingen;Hakim Kouji;0151 52100043;13;Mi;27.03.2024;10:00;12:00;bestätigt;Hakim Kouji
+;MediaMarkt;Friedrichstraße 129-133;40217;Düsseldorf;Hakim Kouji;0151 52100043;13;Mi;27.03.2024;13:00;14:00;bestätigt;Hakim Kouji
+;MediaMarkt;Keniastraße 37;47269;Duisburg;Hakim Kouji;0151 52100043;13;Mi;27.03.2024;14:00;15:00;bestätigt;Hakim Kouji
+;Expert;Im Taubental 36;41468;Neuss;Hakim Kouji;0151 52100043;13;Do;28.03.2024;10:00;11:00;bestätigt;Hakim Kouji
+;expert Dormagen;Lübecker Straße 1;41540;Dormagen;Hakim Kouji;0151 52100043;13;Do;28.03.2024;12:00;13:00;bestätigt;Hakim Kouji
+;Pickens Selfstorage Hamburg Barmbek;Hamburger Straße 195;22083;Hamburg;Frank Friedrich;0151 52100097;13;Do;28.03.2024;16:31;16:31;durchgeführt;Frank Friedrich

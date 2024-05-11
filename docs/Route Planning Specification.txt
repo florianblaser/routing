@@ -1,0 +1,48 @@
+- how to bullet proof?
+	- visualize solution and exclude obviously nonsensical solutions
+
+Objective: Optimize itinerary for n staff over m days, aiming to maximize the coverage of visited locations
+
+Input Variables:
+	- Nodes (Destinations): Each node signifies a location scheduled for visitation.
+	- Distance Metrics: The travel distance between each node pair.
+	- Node Priority: The imperative or urgency of visiting each node, defined according to regular visit intervals.
+	- Operational Timeframes: The specific visitation windows of nodes, taking into account business hours and holidays.
+	- Visit Duration: Anticipated duration of stay at each node, with expectations ranging from 30 to 60 minutes.
+	- Runs: Shedule when a staff works in a given week - can go overnight if opted in to stay in a hotel close to a location
+	- Origin: The staff's residential starting point (must end up there after a run)
+	- Prearranged Appointments: Consideration of existing commitments.
+
+Constraints:
+	- Node Visit Fulfillment: Nodes with priority == 1 must be visited in that week
+	- Weekly Planning: Minimum planning scope is one week.
+	- Hotel Arrival: Ensuring arrival at accommodations or back home by 20:00.
+	- Computational: Can take several hours to optimize
+
+Dynamic Elements:
+	- Adaptive Routing: Capability to alter the route dynamically in response to variations in actual visit duration, unforeseen events like traffic, or to complete an overly ambitious route from the previous day.
+
+Hyperparameters:
+	- Expected locations per hour (does it make a difference if one promoter has 16 hours vs 2 with 8 each? -> potentially use average availability instead of total availability)
+	- Margin (e.g.: Only plan for 90% of time filled with visits and travel)
+
+Main problem 1
+	0) Define node priorities
+	1) Create a large subset of all nodes
+		based on priority and total availability (across 2 days except when planning fridays [use 1.5 the availability of Friday])
+	2) Cluster with staff origin as initial centroid
+		based on distance between nodes and individual staff availability
+		but also ensuring that nodes far away are covered by allowing a drift of the center of a staffs' cluster away from the staffs origin
+
+
+
+
+
+		From a set of locations, I want to select and order a subset of locations to be visited to maximize the total number of locations visited. Each location has opening hours and an expected maximum amount of time to be spent at (max visit duration). Constraints:
+			- visits must begin and end during opening hours
+			- there are prearranged appointments that must be fulfilled
+			- duration of a run must cover X times the sum of visit durations and travel time
+
+Insights:
+	- find a simpler problem to solve; then mutate randomly
+	- random mutations would be "k-opt improvements" aka swapping k edges. The larger k, the more likely to not end up in a local minimum

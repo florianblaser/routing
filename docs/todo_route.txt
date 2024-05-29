@@ -1,0 +1,9 @@
+- fine-tune hyperparameters by printing results
+- How to choose max_travel_distance and span_cost_coefficient in "define_route"
+- Define route based on:
+    - working hours (implicitly defined by total travel time)
+    - opening hours
+    - fixed appointments
+- Store state and if it was possible to find routes for all solutions iteratively add nodes based on node priority and distance to root node (those further away should be included more likely)
+- Test Discrete Priority (must be visited this week; must be visited next week; ...)
+- Compare routes with and without overnight stays / large clusters

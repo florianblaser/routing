@@ -9,7 +9,7 @@ import plotly.graph_objs as go
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 
-def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30):
+def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, frac_fixed_app=.1):
     """Create a DataFrame containing nodes' information, including their attributes and distances."""
     node_ids = np.arange(0, num_nodes)
     
@@ -20,16 +20,30 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
         days = sorted(random.sample(range(5), min_work_days))
         for day in days:
             # Generate random start hours and end hours within constraints
-            start_hour = 8 + random.randint(0, 6)
-            end_hour = start_hour + random.randint(1, 6) * 2
-            if end_hour > 20:
-                end_hour = 20
+            start_hour = 8 + random.randint(0, 2)
+            end_hour = start_hour + random.randint(8, 10)
             schedule[day] = (f"{start_hour:02d}:00", f"{end_hour:02d}:00")
         return schedule
     
     def convert_to_time(hours_dict):
         """Convert string-based opening hours to datetime.time objects."""
         return {k: (datetime.strptime(v[0], "%H:%M").time(), datetime.strptime(v[1], "%H:%M").time()) for k, v in hours_dict.items()}
+
+    def add_fixed_appointments(nodes_df, frac_fixed_app):
+        selected_indices = nodes_df.sample(frac=frac_fixed_app).index  # Select 10% of the nodes
+        for idx in selected_indices:
+            day = random.choice(list(nodes_df.at[idx, 'opening_hours'].keys()))
+            start, end = nodes_df.at[idx, 'opening_hours'][day]
+            if isinstance(start, str):  # Checking if start time is still a string
+                start = datetime.strptime(start, "%H:%M").time()
+            if isinstance(end, str):  # Checking if end time is still a string
+                end = datetime.strptime(end, "%H:%M").time()
+            start_dt = datetime.combine(datetime.today(), start)
+            end_dt = datetime.combine(datetime.today(), end)
+            appointment_start = start_dt + timedelta(minutes=random.randint(0, (end_dt - start_dt).seconds // 60 - 30))
+            appointment_end = appointment_start + timedelta(minutes=30)
+            nodes_df.at[idx, 'fixed_appointment'] = (day, appointment_start.time(), appointment_end.time())
+        return nodes_df
     
     current_date = datetime.now()
     last_visited = [current_date - timedelta(days=np.random.randint(1, max_last_visit)) for _ in range(num_nodes)]
@@ -39,19 +53,20 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
 
     # Consolidate various attributes into a DataFrame for each node
     nodes_df = pd.DataFrame({
-        "Node_ID": node_ids,
-        "Opening_Hours": [generate_opening_hours() for _ in range(num_nodes)],
+        "node_id": node_ids,
+        "opening_hours": [generate_opening_hours() for _ in range(num_nodes)],
         "last_visited": last_visited,
         "Visiting Interval (days)": visiting_intervals,
         "on_site_time": durations
     })
 
-    nodes_df.sort_values("Node_ID", inplace=True)
+    nodes_df.sort_values("node_id", inplace=True)
     nodes_df['days_since_last_visit'] = (current_date - pd.to_datetime(nodes_df['last_visited'])).dt.days
     nodes_df['priority'] = nodes_df['days_since_last_visit'] / nodes_df['Visiting Interval (days)']
     nodes_df['priority'] = nodes_df['priority'].apply(lambda x: 1 if x > 1 else x)
-
-    nodes_df['Opening_Hours'] = nodes_df['Opening_Hours'].apply(convert_to_time)
+    nodes_df['fixed_appointment'] = None  # Initialize column for appointments
+    nodes_df['opening_hours'] = nodes_df['opening_hours'].apply(convert_to_time)
+    nodes_df = add_fixed_appointments(nodes_df, frac_fixed_app)
 
     # Generate random coordinates for each node
     coordinates = [(random.randint(0, 100), random.randint(0, 100)) for _ in range(num_nodes)]
@@ -82,107 +97,264 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
     # Ensure the diagonal is zero to represent self-distance
     np.fill_diagonal(distance_df.values, 0)
 
+    # add "dist_to_home" column
+    nodes_df['dist_to_home'] = distance_df[home_node_id]
     return nodes_df, distance_df
  
-def calculate_metric(cluster_indices, nodes_df):
-    """
-    Calculates the metric for a cluster.
-    The metric is the sum of priorities and the number of nodes.
-    """
-    cluster_data = nodes_df.loc[cluster_indices]
-    sum_priorities = cluster_data['priority'].sum()
-    num_nodes = len(cluster_indices)
-    return num_nodes # + sum_priorities
-
-def adjust_angles(clusters, nodes_df, angle_ranges):
-    sorted_nodes = nodes_df.sort_values(by='angle_to_home').reset_index()
-    gaps = [(sorted_nodes['angle_to_home'][i + 1] - sorted_nodes['angle_to_home'][i], i, i + 1) for i in range(len(sorted_nodes) - 1)]
-    gaps.append((360 - sorted_nodes['angle_to_home'].iloc[-1] + sorted_nodes['angle_to_home'].iloc[0], len(sorted_nodes) - 1, 0))
-    max_gap, index1, index2 = max(gaps, key=lambda x: x[0])
-    if max_gap > 90:
-        current_angle = sorted_nodes.iloc[index1]['angle_to_home']
-        end_angle = sorted_nodes.iloc[index2]['angle_to_home']
-
-    else:
-        current_angle = 0
-        end_angle = 360
+def calculate_metric(distance_matrix, nodes_df, global_max_dist, node_ids, print_ind_metrics=True):
+    filtered_nodes_df = nodes_df[nodes_df['node_id'].isin(node_ids)]
     
-    total_nodes = len(nodes_df)
-    num_clusters = len(clusters)
-    desired_size = total_nodes / num_clusters
+    # Identify indices corresponding to the filtered node IDs
+    # index_map = {node_id: index for index, node_id in enumerate(nodes_df['node_id'])}
+    # filtered_indices = [index_map[node_id] for node_id in node_ids]
+    # Extract relevant submatrix from the distance matrix
+    # filtered_distance_matrix = distance_matrix[np.ix_(filtered_indices, filtered_indices)]
+    # Calculate mean and variance of distances between nodes using the distance matrix
+    # distances = filtered_distance_matrix[np.triu_indices_from(filtered_distance_matrix, k=1)]
+    # mean_dist_between_nodes = np.mean(distances)
+    # var_dist_between_nodes = np.var(distances, ddof=1)
 
-    # Calculate current sizes and prepare adjustments
-    current_sizes = {cluster_id: len(indices) for cluster_id, indices in clusters.items()}
-    angle_changes = {}
-
-    # Calculate total angle change needed based on node distribution
-    total_angle_change = 0
-    for cluster_id, size in current_sizes.items():
-        deviation = size - desired_size
-        # Here, angle adjustment could be proportional to the deviation from desired size
-        angle_changes[cluster_id] = -deviation * 1  # Adjust scaling factor as needed
-        total_angle_change += angle_changes[cluster_id]
-
-    # Ensure total angle remains 360 degrees
-    correction = -total_angle_change / num_clusters
-
-    # Adjust angles
-    adjusted_angle_ranges = {}
-    current_angle = 0
-    for cluster_id, initial_range in angle_ranges.items():
-        start_angle, end_angle = initial_range
-        angle_width = end_angle - start_angle + angle_changes[cluster_id] + correction
-        adjusted_angle_ranges[cluster_id] = (current_angle, current_angle + angle_width)
-        current_angle += angle_width
-    return adjusted_angle_ranges
-
-def custom_clustering(distance_matrix, nodes_df, num_small_clusters, num_large_clusters, overnight_factor, precision, adjustment_speed, home_node_id = 0):
-    """
-    Custom clustering algorithm that divides nodes into angular clusters.
-    Balances clusters between small and large based on the metric calculations.
-    Includes the home node at the start of each cluster.
+    num_nodes_metric = len(filtered_nodes_df) / len(nodes_df)
     
-    Args:
-    - distance_matrix: DataFrame containing distances between nodes.
-    - nodes_df: DataFrame containing node data.
-    - num_small_clusters: Number of smaller clusters to create.
-    - num_large_clusters: Number of larger clusters to create.
-    - factor: Adjustment factor used in balancing clusters.
-    - precision: Number of iterations for refining the clusters.
-    - home_node_id: ID of the home node to be included at the start of each cluster.
-    """
-    # remove home node from nodes_df
-    nodes_df = nodes_df.drop(home_node_id)
-    # Initialize clusters
+    priority_metric = filtered_nodes_df['priority'].nlargest(int(0.3 * len(filtered_nodes_df))).mean()
+    
+    max_dist_to_root = filtered_nodes_df['dist_to_home'].max()
+    dist_metric = max_dist_to_root / global_max_dist
+
+    # prevent any metric from being nan
+    # if np.isnan(num_nodes_metric):
+    #     num_nodes_metric = 0.5
+    if np.isnan(priority_metric):
+        priority_metric = 0.5
+    # if np.isnan(dist_metric):
+    #     dist_metric = 0.5
+
+    metric = (num_nodes_metric + dist_metric) / 2
+
+    if print_ind_metrics:
+        print(f"Number of nodes metric: {num_nodes_metric}")
+        print(f"Priority metric: {priority_metric}")
+        print(f"Distance metric: {dist_metric}")
+        print(f"Overall metric: {metric}")
+    
+    return metric
+
+def adjust_angles(clusters, nodes_df, angle_sizes, degree_adj, global_max_dist, num_small_clusters, num_large_clusters, overnight_factor, distance_matrix, verbose):    
+    metrics = {}
+    for cluster_id, node_ids in clusters.items():
+        metric = calculate_metric(distance_matrix, nodes_df, global_max_dist, node_ids, print_ind_metrics=False)
+        metrics[cluster_id] = metric
+
+    metric_sum = sum(metrics.values())
+    small_soll = metric_sum / (num_large_clusters * overnight_factor + num_small_clusters)
+    large_soll = small_soll * overnight_factor
+
+    deviations = {cluster_id: metrics[cluster_id] - (small_soll if 'small' in cluster_id else large_soll) for cluster_id in clusters}
+    
+    # assigne the degree_adj to the clusters based on the deviation
+    for cluster_id, deviation in deviations.items():
+        angle_sizes[cluster_id] -= deviation * degree_adj
+
+    if verbose:
+        print("Deviations, metrics and new angle sizes:")
+        for cluster_id in clusters:
+            print(f"Cluster {cluster_id} \
+                with deviation {round(deviations[cluster_id], 2)} \
+                and metric {round(metrics[cluster_id], 2)} \
+                has new angle size {round(angle_sizes[cluster_id], 2)} \
+                spanning from {round(angle_sizes[cluster_id] - deviations[cluster_id] * degree_adj, 2)}° to {round(angle_sizes[cluster_id], 2)}°.")
+        
+    return angle_sizes
+
+def custom_clustering(distance_matrix, nodes_df, num_small_clusters, num_large_clusters, overnight_factor, precision, home_node_id=0, verbose=False):
+    # remove the home node from the nodes_df
+    if nodes_df.index[0] == 0:
+        nodes_df_copy = nodes_df.drop(0).copy()
+    
+    # define the largest gap to limit the span of all clusters
     clusters = {f'small_{i}': [home_node_id] for i in range(num_small_clusters)}
     clusters.update({f'large_{i}': [home_node_id] for i in range(num_large_clusters)})
+    
+    angles = sorted(nodes_df_copy['angle_to_home'])
+    diffs = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
+    diffs.append(360 - angles[-1] + angles[0])
+    
+    max_gap = max(diffs)
+    gap_start = angles[diffs.index(max_gap)]
+    gap_end = angles[(diffs.index(max_gap) + 1) % len(angles)]
 
-    # Initial angle ranges equally distributed
+    if verbose == True:
+        print(f"Largest gap spans from {gap_start}° to {gap_end}°, covering {max_gap}°.")
+
+    cluster_start = gap_end
+    cluster_end = gap_start  
     num_clusters = num_small_clusters + num_large_clusters
-    step = 360 / num_clusters
-    angle_ranges = {f'small_{i}': (i * step, (i + 1) * step) for i in range(num_small_clusters)}
-    angle_ranges.update({f'large_{i}': ((i + num_small_clusters) * step, (i + num_small_clusters + 1) * step) for i in range(num_large_clusters)})
 
-    # Iteratively adjust cluster assignments based on the metrics
-    for _ in range(precision):
-        # Start each iteration by clearing clusters but keeping the home node
+    # Initialize the angle sizes for the clusters
+    total_span = (360 - max_gap)
+    degree_adj = total_span / 10
+    small_step = total_span / (num_small_clusters + num_large_clusters * overnight_factor)
+    large_step = small_step * overnight_factor
+
+    if verbose == True:
+        print(f"Small step size is {small_step}°, large step size is {large_step}°.")
+
+    angle_sizes = {}
+    for i in range(num_clusters):
+        if i < num_small_clusters:
+            angle_sizes[f'small_{i}'] = small_step
+        else:
+            angle_sizes[f'large_{i-num_small_clusters}'] = large_step
+
+    for key, size in angle_sizes.items():
+        if verbose == True:
+            print(f"Cluster {key} spans {size}°")
+    
+    global_max_dist = nodes_df_copy['dist_to_home'].max()
+
+    # Initial assignment of nodes to clusters
+    for i in range(precision):
+        current_angle = cluster_start  # Reset the start angle for each precision iteration
+            
+        # add the home node to each cluster
         for key in clusters.keys():
             clusters[key] = [home_node_id]
 
-        # Distribute nodes based on (adjusted) angle ranges
-        for index, row in nodes_df.iterrows():
-            if index == home_node_id:
-                continue  # Skip the home node in regular assignments
-            node_angle = row['angle_to_home']
-            for cluster_id, (start_angle, end_angle) in angle_ranges.items():
-                if start_angle <= node_angle < end_angle:
-                    clusters[cluster_id].append(index)
-                    break
+        # Assign nodes to clusters based on their angle to the home node
+        for cluster_id, size in angle_sizes.items():
+            start_angle = current_angle
+            # round up to the nearest integer
+            start_angle = int(start_angle)
+            end_angle = (current_angle + size) % 360
+            end_angle = int(np.ceil(end_angle))
+            # Ensuring all nodes are assigned, handling the wrap-around scenario more cleanly
+            if end_angle < start_angle:  # This handles the case where the segment wraps past 360 degrees
+                nodes_in_cluster = [index for index, row in nodes_df_copy.iterrows() if 
+                                    (row['angle_to_home'] >= start_angle or row['angle_to_home'] < end_angle)]
+            else:  # No wrap-around, normal case
+                nodes_in_cluster = [index for index, row in nodes_df_copy.iterrows() if 
+                                    (start_angle <= row['angle_to_home'] < end_angle)]
 
-        # Adjust angles based on cluster metrics
-        angle_ranges = adjust_angles(clusters, nodes_df, angle_ranges) #, adjustment_speed, overnight_factor, num_small_clusters, num_large_clusters)
+            clusters[cluster_id] = [home_node_id] + nodes_in_cluster
+            current_angle = end_angle
 
+        if (i == 0) & (verbose == True):
+            print("Initial clusters:")
+            for key, value in clusters.items():
+                print(f"Cluster {key} with nodes {value}")
+
+        angle_sizes = adjust_angles(clusters, nodes_df_copy, angle_sizes, degree_adj, global_max_dist, num_small_clusters, num_large_clusters, overnight_factor, distance_matrix, verbose)
+        degree_adj *= 0.9
+
+        #plot_refined_clusters(clusters, nodes_df)
+        
     return clusters
+
+def assign_weekdays_to_clusters(nodes_df):
+    nodes_df['weekdays_fixed_appointments'] = nodes_df['fixed_appointment'].apply(lambda x: x[0] if isinstance(x, tuple) else None)
+    grouped_data = nodes_df.groupby(['weekdays_fixed_appointments', 'cluster']).size().unstack(fill_value=0)
+    weekdays = [0.0, 1.0, 2.0, 3.0, 4.0]
+
+    cluster_assignments = {}
+
+    # Identify missing weekdays
+    missing_weekdays = set(weekdays) - set(grouped_data.index)
+
+    # Add missing weekdays as new rows filled with zeros
+    for weekday in missing_weekdays:
+        grouped_data.loc[weekday] = [0] * len(grouped_data.columns)  # Create a row of zeros
+
+    # Sort the DataFrame by index to ensure weekdays are in order
+    grouped_data.sort_index(inplace=True)
+
+    # Generate priority list focusing on appropriate assignment of large clusters
+    priority_list = []
+    for cluster in grouped_data.columns:
+        for i in range(len(weekdays)):
+            if 'large' in cluster and i < len(weekdays) - 1:  # ensure there's a next day for large clusters
+                avg_appointments = (grouped_data.loc[weekdays[i], cluster] + grouped_data.loc[weekdays[i+1], cluster]) / 2
+                priority_list.append((weekdays[i], cluster, avg_appointments, f"Days {weekdays[i]}-{weekdays[i+1]}"))
+            elif 'small' in cluster:
+                priority_list.append((weekdays[i], cluster, grouped_data.loc[weekdays[i], cluster], f"Day {weekdays[i]}"))
+
+    # Sort priority list
+    priority_df = pd.DataFrame(priority_list, columns=['day', 'cluster', 'appointments', 'description'])
+    priority_df = priority_df.sort_values(by=['cluster', 'appointments'], ascending=[True, False])
+    all_clusters = nodes_df['cluster'].unique()
+    large_clusters = [cluster for cluster in all_clusters if 'large' in cluster]
+    large_clusters_not_in_priority = [cluster for cluster in large_clusters if cluster not in set(priority_df['cluster'])]
+
+    # check if there is any entry in priority_df['description'] containing 'Days'
+    for index, large_cluster in enumerate(large_clusters_not_in_priority):
+        # create a list of consecutive days based on weekdays
+        consecutive_day_pairs = []
+        for i in range(len(weekdays)):
+            if i < len(weekdays) - 1:
+                consecutive_day_pairs.append((weekdays[i], weekdays[i+1]))
+
+        # get the number of appointments for each pair of consecutive_days
+        appointments_per_pair = {}
+        try:
+            for consecutive_days in consecutive_day_pairs:
+                day1 = sum(priority_df[priority_df['day'] == consecutive_days[0]]['appointments'])
+                day2 = sum(priority_df[priority_df['day'] == consecutive_days[1]]['appointments'])
+                appointments_per_pair[consecutive_days] = day1 + day2
+
+            # get the pair of consecutive days with the least number of appointments
+            min_appointments = min(appointments_per_pair.values())
+
+            # get the pair of consecutive days with the least number of appointments
+            min_appointments_days = [k for k, v in appointments_per_pair.items() if v == min_appointments]
+
+        except:
+            min_appointments_days = [(0.0, 1.0), (2.0, 3.0)]
+
+        cluster_assignments[large_cluster] = min_appointments_days[index]
+
+    # Assign clusters to days
+    used_days = set()
+    for _, row in priority_df.iterrows():
+        cluster = row['cluster']
+        description = row['description']
+
+        if 'Days' in description and cluster not in cluster_assignments:
+            day1, day2 = map(float, description.split(' ')[1].split('-'))
+            if day1 not in used_days and day2 not in used_days:
+                cluster_assignments[cluster] = {day1, day2}
+                used_days.update([day1, day2])
+        elif 'Day' in description and cluster not in cluster_assignments and float(description.split(' ')[1]) not in used_days:
+            day = float(description.split(' ')[1])
+            cluster_assignments[cluster] = {day,}
+            used_days.add(day)
+
+    # find the clusters that are not assigned to any day
+    unassigned_clusters = set(all_clusters) - set(cluster_assignments.keys())
+    unassigned_days = set(weekdays) - used_days
+
+    # randomly assign unassigned clusters to unassigned days
+    for cluster in unassigned_clusters:
+        day = unassigned_days.pop()
+        cluster_assignments[cluster] = {day,}
+    
+    # Add a new column to nodes_df mapping each node's cluster to the weekday
+    nodes_df['visit_day'] = nodes_df['cluster'].map(cluster_assignments)
+
+    def update_visit_days(row):
+        fixed_day = row['weekdays_fixed_appointments']
+        visit_days = row['visit_day']
+        
+        # If there's a fixed appointment day and it's not in visit days, update the visit days
+        if not pd.isna(fixed_day) and fixed_day not in visit_days:
+            unique_visit_days = nodes_df['visit_day'].apply(lambda x: tuple(sorted(x))).unique()
+            for unique_days in unique_visit_days:
+                if fixed_day in unique_days:
+                    return set(unique_days)
+        return visit_days
+
+    # Apply the function to the dataframe
+    nodes_df['visit_day'] = nodes_df.apply(update_visit_days, axis=1)
+    
+    return nodes_df
 
 def create_data_model(sub_distance_matrix):
     """Stores the data for the problem."""
@@ -208,10 +380,10 @@ def find_route(clusters, nodes_df, distance_matrix, max_travel_distance=2000, sp
     solutions = {}
     for cluster in clusters:
         nodes = clusters[cluster]
-        sub_nodes_df = nodes_df[nodes_df['Node_ID'].isin(nodes)].reset_index(drop=True)
+        sub_nodes_df = nodes_df[nodes_df['node_id'].isin(nodes)].reset_index(drop=True)
         sub_distance_matrix = distance_matrix.loc[nodes, nodes].values.tolist()
         sub_distance_matrix = [[int(x) for x in row] for row in sub_distance_matrix]
-        node_mapping = sub_nodes_df['Node_ID'].to_dict()
+        node_mapping = sub_nodes_df['node_id'].to_dict()
         
         data = create_data_model(sub_distance_matrix)
 
@@ -333,7 +505,7 @@ def plot_refined_clusters(refined_clusters, nodes_df, home_node_id=0):
             name=cluster_label,
             hoverinfo='text',
             hovertext=[
-                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'Opening_Hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}"
+                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']} <br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}"
                 for node_id in node_indices
             ]
         ))
@@ -360,7 +532,7 @@ def plot_refined_clusters(refined_clusters, nodes_df, home_node_id=0):
             name='Unassigned Nodes',
             hoverinfo='text',
             hovertext=[
-                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'Opening_Hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}"
+                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']} <br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}"
                 for node_id in unassigned_nodes
             ]
         ))
@@ -403,9 +575,11 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
     for index, (cluster_label, route_list) in enumerate(route_lists.items()):
         color = colors[index % len(colors)]  # Choose a color based on the current index
 
-        # Coordinates for the route
-        x = [nodes_df.loc[node_id, 'x'] for node_id in route_list]
-        y = [nodes_df.loc[node_id, 'y'] for node_id in route_list]
+        # Extract node IDs and times for plotting coordinates and hover text
+        node_ids = [node_id for node_id, _ in route_list]  # Extract just the node IDs from the tuples
+        times = [time for _, time in route_list]  # Extract times for hover text
+        x = [nodes_df.loc[node_id, 'x'] for node_id in node_ids]
+        y = [nodes_df.loc[node_id, 'y'] for node_id in node_ids]
 
         # Adding the route trace
         fig.add_trace(go.Scatter(
@@ -417,8 +591,8 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
             name=f"Route {cluster_label}",
             hoverinfo='text',
             hovertext=[
-                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'Opening_Hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f}"
-                for node_id in route_list
+                f"Node: {node_id}<br>Time: {time}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}<br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}"
+                for node_id, time in zip(node_ids, times)
             ]
         ))
 

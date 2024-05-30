@@ -9,6 +9,43 @@ import plotly.graph_objs as go
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 
+import plotly.graph_objs as go
+
+def plot_all_nodes_with_angles(nodes_df, home_node_id=0):
+    """Plot all nodes with their respective details displayed on hover, with the home node colored distinctly."""
+    fig = go.Figure()
+
+    # Assign colors and sizes based on node ID, with a special color for the home node
+    colors = ['#00BFC4' if node_id != home_node_id else '#FF6347' for node_id in nodes_df.index]
+    sizes = [10 if node_id != home_node_id else 12 for node_id in nodes_df.index]  # Home node slightly larger
+
+    # Add all nodes to the plot
+    fig.add_trace(go.Scatter(
+        x=nodes_df['x'],
+        y=nodes_df['y'],
+        mode='markers',
+        marker=dict(color=colors, size=sizes),
+        text=[
+            f"Node: {node_id}<br>X: {row['x']}<br>Y: {row['y']}<br>Angle: {row['angle_to_home']}"
+            for node_id, row in nodes_df.iterrows()
+        ],
+        hoverinfo='text'
+    ))
+
+    # Update the plot layout to make it more rectangular
+    fig.update_layout(
+        title="Plot of All Nodes with Angles",
+        xaxis=dict(title="X Coordinate", range=[nodes_df['x'].min() - 5, nodes_df['x'].max() + 5]),
+        yaxis=dict(title="Y Coordinate", range=[nodes_df['y'].min() - 5, nodes_df['y'].max() + 5], scaleanchor="x", scaleratio=1),
+        plot_bgcolor='white',
+        hovermode='closest',
+        height=500,
+        width=700
+    )
+
+    # Show the figure
+    fig.show()
+    
 def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, frac_fixed_app=.1):
     """Create a DataFrame containing nodes' information, including their attributes and distances."""
     node_ids = np.arange(0, num_nodes)
@@ -591,7 +628,14 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
             name=f"Route {cluster_label}",
             hoverinfo='text',
             hovertext=[
-                f"Node: {node_id}<br>Time: {time}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}<br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}"
+                f"Node: {node_id}<br> \
+                Time: {time}<br>\
+                Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>\
+                Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>\
+                Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}<br>\
+                Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}<br>\
+                Time Window: {nodes_df.loc[node_id, 'adjusted_opening_hours']}<br>\
+                "
                 for node_id, time in zip(node_ids, times)
             ]
         ))

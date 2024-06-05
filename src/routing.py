@@ -57,8 +57,8 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
         days = sorted(random.sample(range(5), min_work_days))
         for day in days:
             # Generate random start hours and end hours within constraints
-            start_hour = 8 + random.randint(0, 2)
-            end_hour = start_hour + random.randint(8, 10)
+            start_hour = 8 + random.randint(0, 1)
+            end_hour = start_hour + random.randint(8, 9)
             schedule[day] = (f"{start_hour:02d}:00", f"{end_hour:02d}:00")
         return schedule
     
@@ -67,7 +67,7 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
         return {k: (datetime.strptime(v[0], "%H:%M").time(), datetime.strptime(v[1], "%H:%M").time()) for k, v in hours_dict.items()}
 
     def add_fixed_appointments(nodes_df, frac_fixed_app):
-        selected_indices = nodes_df.sample(frac=frac_fixed_app).index  # Select 10% of the nodes
+        selected_indices = nodes_df.sample(frac=frac_fixed_app).index
         for idx in selected_indices:
             day = random.choice(list(nodes_df.at[idx, 'opening_hours'].keys()))
             start, end = nodes_df.at[idx, 'opening_hours'][day]
@@ -96,6 +96,8 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
         "Visiting Interval (days)": visiting_intervals,
         "on_site_time": durations
     })
+
+    nodes_df.loc[nodes_df['node_id'] == 0, 'on_site_time'] = 0
 
     nodes_df.sort_values("node_id", inplace=True)
     nodes_df['days_since_last_visit'] = (current_date - pd.to_datetime(nodes_df['last_visited'])).dt.days
@@ -624,7 +626,13 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
             y=y,
             mode='lines+markers',
             line=dict(color=color, width=2),
-            marker=dict(color=color, size=8),
+            marker=dict(
+                color=[
+                    'black' if not pd.isnull(nodes_df.loc[node_id, 'fixed_appointment']) else color
+                    for node_id in node_ids
+                ],
+                size=8
+            ),
             name=f"Route {cluster_label}",
             hoverinfo='text',
             hovertext=[

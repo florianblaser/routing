@@ -54,7 +54,7 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
         """Generate opening hours for a random subset of days."""
         schedule = {}
         # Randomly select a minimal number of working days within a given week
-        days = sorted(random.sample(range(5), min_work_days))
+        days = sorted(random.sample(range(1,8), min_work_days))
         for day in days:
             # Generate random start hours and end hours within constraints
             start_hour = 8 + random.randint(0, 1)
@@ -226,7 +226,6 @@ def custom_clustering(distance_matrix, nodes_df, num_small_clusters, num_large_c
         print(f"Largest gap spans from {gap_start}° to {gap_end}°, covering {max_gap}°.")
 
     cluster_start = gap_end
-    cluster_end = gap_start  
     num_clusters = num_small_clusters + num_large_clusters
 
     # Initialize the angle sizes for the clusters

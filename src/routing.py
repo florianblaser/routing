@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import random
 
 from scipy.spatial import distance
@@ -46,31 +46,53 @@ def plot_all_nodes_with_angles(nodes_df, home_node_id=0):
     # Show the figure
     fig.show()
     
-def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, frac_fixed_app=.1):
+def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, frac_fixed_app=.1, simple_schedule=False):
     """Create a DataFrame containing nodes' information, including their attributes and distances."""
     node_ids = np.arange(0, num_nodes)
     
-    def generate_opening_hours():
+    def generate_opening_hours(min_work_days):
         """Generate opening hours for a random subset of days."""
         schedule = {}
         # Randomly select a minimal number of working days within a given week
-        days = sorted(random.sample(range(1,8), min_work_days))
+        days = sorted(random.sample(range(1, 8), min_work_days))
         for day in days:
             # Generate random start hours and end hours within constraints
             start_hour = 8 + random.randint(0, 1)
             end_hour = start_hour + random.randint(8, 9)
-            schedule[day] = (f"{start_hour:02d}:00", f"{end_hour:02d}:00")
+            start_minute = random.randint(0, 59)
+            end_minute = random.randint(0, 59)
+
+            # Randomly add lunch break
+            if random.random() < 0.5:
+                lunch_start = 11 + random.randint(0, 1)
+                lunch_end = lunch_start + 1
+                lunch_start_minute = random.randint(0, 59)
+                lunch_end_minute = random.randint(0, 59)
+
+                # Creating datetime.time objects for each period
+                schedule[day] = [
+                    [time(start_hour, start_minute), time(lunch_start, lunch_start_minute)],
+                    [time(lunch_end, lunch_end_minute), time(end_hour, end_minute)]
+                ]
+            else:
+                # Creating datetime.time objects for a non-interrupted period
+                schedule[day] = [
+                    [time(start_hour, start_minute), time(end_hour, end_minute)]
+                ]
+            if simple_schedule:
+                schedule[day] = [[time(8, 0), time(18, 0)]]
         return schedule
     
-    def convert_to_time(hours_dict):
+    def convert_to_time(hours_dict): # duplicate
         """Convert string-based opening hours to datetime.time objects."""
         return {k: (datetime.strptime(v[0], "%H:%M").time(), datetime.strptime(v[1], "%H:%M").time()) for k, v in hours_dict.items()}
 
     def add_fixed_appointments(nodes_df, frac_fixed_app):
-        selected_indices = nodes_df.sample(frac=frac_fixed_app).index
+        selected_indices = nodes_df.sample(frac=frac_fixed_app, replace=True).index
         for idx in selected_indices:
-            day = random.choice(list(nodes_df.at[idx, 'opening_hours'].keys()))
-            start, end = nodes_df.at[idx, 'opening_hours'][day]
+            # day can't be in days_off
+            day = random.choice([day for day in nodes_df.at[idx, 'opening_hours'].keys() if day not in days_off])
+            start, end = nodes_df.at[idx, 'opening_hours'][day][0][0], nodes_df.at[idx, 'opening_hours'][day][-1][-1]
             if isinstance(start, str):  # Checking if start time is still a string
                 start = datetime.strptime(start, "%H:%M").time()
             if isinstance(end, str):  # Checking if end time is still a string
@@ -79,7 +101,7 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
             end_dt = datetime.combine(datetime.today(), end)
             appointment_start = start_dt + timedelta(minutes=random.randint(0, (end_dt - start_dt).seconds // 60 - 30))
             appointment_end = appointment_start + timedelta(minutes=30)
-            nodes_df.at[idx, 'fixed_appointment'] = (day, appointment_start.time(), appointment_end.time())
+            nodes_df.at[idx, 'fixed_appointment'].append([day, appointment_start.time(), appointment_end.time()])
         return nodes_df
     
     current_date = datetime.now()
@@ -91,7 +113,7 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
     # Consolidate various attributes into a DataFrame for each node
     nodes_df = pd.DataFrame({
         "node_id": node_ids,
-        "opening_hours": [generate_opening_hours() for _ in range(num_nodes)],
+        "opening_hours": [generate_opening_hours(min_work_days) for _ in range(num_nodes)],
         "last_visited": last_visited,
         "Visiting Interval (days)": visiting_intervals,
         "on_site_time": durations
@@ -103,8 +125,8 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, visiting_inte
     nodes_df['days_since_last_visit'] = (current_date - pd.to_datetime(nodes_df['last_visited'])).dt.days
     nodes_df['priority'] = nodes_df['days_since_last_visit'] / nodes_df['Visiting Interval (days)']
     nodes_df['priority'] = nodes_df['priority'].apply(lambda x: 1 if x > 1 else x)
-    nodes_df['fixed_appointment'] = None  # Initialize column for appointments
-    nodes_df['opening_hours'] = nodes_df['opening_hours'].apply(convert_to_time)
+    nodes_df['fixed_appointment'] =  [[] for _ in range(num_nodes)]
+    nodes_df['opening_hours'] = nodes_df['opening_hours']
     nodes_df = add_fixed_appointments(nodes_df, frac_fixed_app)
 
     # Generate random coordinates for each node
@@ -540,7 +562,7 @@ def plot_refined_clusters(refined_clusters, nodes_df, home_node_id=0):
             y=y,
             mode='markers',
             marker=dict(color=color, size=10),
-            name=cluster_label,
+            name=str(cluster_label),
             hoverinfo='text',
             hovertext=[
                 f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']} <br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}"
@@ -627,7 +649,7 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
             line=dict(color=color, width=2),
             marker=dict(
                 color=[
-                    'black' if not pd.isnull(nodes_df.loc[node_id, 'fixed_appointment']) else color
+                    'black' if isinstance(nodes_df.loc[node_id, 'fixed_appointment'], list) else color
                     for node_id in node_ids
                 ],
                 size=8

@@ -148,12 +148,20 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, vis
     angles = calculate_angles(nodes_df, home_x, home_y)
     nodes_df['angle_to_home'] = angles
 
+    nodes_df = nodes_df.explode('fixed_appointment').reset_index(drop=True)
+    nodes_df['weekday_fixed_appointment'] = nodes_df['fixed_appointment'].apply(lambda x: x[0] if isinstance(x, list) else None)
+    
+    # ensure
+    nodes_df['original_node_id'] = nodes_df['node_id']
+    nodes_df.reset_index(drop=True, inplace=True)
+    nodes_df['node_id'] = nodes_df.index
+
     # Create a distance matrix based on Euclidean distance
     def calculate_euclidean_distance_matrix(coords):
         return distance.cdist(coords, coords, 'euclidean')
 
     distance_matrix = calculate_euclidean_distance_matrix(nodes_df[['x', 'y']].values)
-    distance_df = pd.DataFrame(np.round(distance_matrix, 2), columns=range(0, num_nodes), index=range(0, num_nodes))
+    distance_df = pd.DataFrame(np.round(distance_matrix, 2), columns=range(0, len(nodes_df)), index=range(0, len(nodes_df)))
 
     # Ensure the diagonal is zero to represent self-distance
     np.fill_diagonal(distance_df.values, 0)

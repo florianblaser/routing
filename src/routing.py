@@ -168,6 +168,16 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, vis
 
     # add "dist_to_home" column
     nodes_df['dist_to_home'] = distance_df[home_node_id]
+
+    all_days = set(range(1, 8))
+    # Calculate open days as sets from the dictionary keys
+    nodes_df['open_days'] = nodes_df['opening_hours'].apply(lambda x: set(x.keys()))
+
+    # Calculate closed days
+    nodes_df['closed_days'] = nodes_df['open_days'].apply(lambda x: set(all_days - x))
+
+    # nodes with a fixed appointment have priorty = 1
+    nodes_df['priority'] = nodes_df.apply(lambda row: 9 if isinstance(row['fixed_appointment'], list) else row['priority'], axis=1)
     return nodes_df, distance_df
  
 def calculate_metric(distance_matrix, nodes_df, global_max_dist, node_ids, print_ind_metrics=True):

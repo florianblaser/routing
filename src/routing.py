@@ -283,7 +283,7 @@ def plot_all_cluster_routes(route_lists, nodes_df, overnight_nodes, home_node_id
     return fig
 
 # DATA GENERATION
-def create_data(num_nodes, frac_fixed_app, home_node_id, min_work_days, days_off, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, simple_schedule=False):
+def create_data(num_nodes, frac_fixed_app, min_work_days, days_off, penalties, home_node_id, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, simple_schedule=False):
     """Create a DataFrame containing nodes' information, including their attributes and distances."""
     node_ids = np.arange(0, num_nodes)
     
@@ -392,8 +392,8 @@ def create_data(num_nodes, frac_fixed_app, home_node_id, min_work_days, days_off
     
     # PRIORITY
     bins = [-float('inf'), 1, 2, 3, float('inf')]
-    nodes_df['priority'] = pd.cut(nodes_df['weeks_until_visit'], bins=bins, labels=[1000, 500, 250, 100], right=False).astype(int)
-    nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = 5000
+    nodes_df['priority'] = pd.cut(nodes_df['weeks_until_visit'], bins=bins, labels=penalties[1:], right=False).astype(int)
+    nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = penalties[0]
     # nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = 2
     # nodes_df['priority'] = (nodes_df['priority']*100)**penalty_factor[0]
     # nodes_df['priority'] = round((nodes_df['priority'] - nodes_df['priority'].min()) / (nodes_df['priority'].max() - nodes_df['priority'].min()) * penalty_factor[1] + penalty_factor[2], 0)
@@ -612,7 +612,7 @@ def adjust_opening_hours(row, work_schedule, margin, time_matrix):
     return adjusted_hours
 
 # CLUSTERING
-def custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, home_node_id=0, verbose=False, visual=False):
+def custom_clustering(nodes_df, time_matrix, blocks_cont, num_nodes_metric_coef, spread_metric_coef, num_fixed_metric_coef, doubling_exp, precision=100, home_node_id=0, verbose=False, visual=False):
     def calculate_metric(nodes_df, time_matrix, global_max_dist, node_ids, cluster_id, print_ind_metrics=False):
         if len(node_ids) > 1:
             total_spread = np.mean(time_matrix)
@@ -641,7 +641,7 @@ def custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, home_no
                 # print(f'Problems with dist_metric for {cluster_id}')
                 dist_metric = 0.5
 
-            metric = num_nodes_metric * 2 + spread_metric # + num_fixed_metric/3
+            metric = num_nodes_metric * num_nodes_metric_coef + spread_metric * spread_metric_coef + num_fixed_metric * num_fixed_metric_coef
 
             if verbose==2:
                 print(f'Cluster: {cluster_id}')
@@ -655,7 +655,7 @@ def custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, home_no
             metric = 0
 
             if print_ind_metrics:
-                print('Found a cluster wihtout nodes')
+                print('Found a cluster without nodes')
         
         return metric
 
@@ -672,7 +672,8 @@ def custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, home_no
         target_metrics = {}
         for cluster, metric in metrics.items():
             size = float(cluster.split('_')[0])
-            target_metrics[cluster] = base_metric * size
+            target_metric = base_metric * size**doubling_exp
+            target_metrics[cluster] = target_metric
 
         new_angle_sizes = angle_sizes.copy()  # Copy existing angle sizes to modify
         
@@ -912,7 +913,6 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
     
     time_dimension = routing.GetDimensionOrDie("total_time")
     end_index = manager.NodeToIndex(internal_start_index)
-    print(f'end index: {end_index} internal start index: {internal_start_index}, data depot: {data["depot"]}')
     time_dimension.CumulVar(end_index).SetRange(1, global_work_end)
 
     # PENALTY
@@ -925,8 +925,6 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
 
     # OPENING HOURS, LUNCH AND OVERNIGHT BREAKS window example:
     for location_index, windows in enumerate(data['windows']):
-        original_node_id = data['original_node_ids'][location_index]    
-        print(f'location index: {location_index} and initial index {original_node_id}, windows: {windows}')
         if internal_start_index != 0:
             windows = [[1, 1439]]
         time_dimension.CumulVar(location_index).SetRange(windows[0][0], windows[-1][1])
@@ -1031,7 +1029,7 @@ def find_last_nodes_per_day(trips):
             # Store the list of last nodes for each day in the result dictionary
             return day_nodes
 
-def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_limit, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, min_distance_overnight, start_node, verbose=False, visual=False, restrictive=False):
+def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_limit, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, min_distance_overnight, start_node, num_nodes_metric_coef, spread_metric_coef, num_fixed_metric_coef, doubling_exp, cluster_sizes_below_1, verbose=False, visual=False, restrictive=False):
     #######################################################
     ######## DEFINE TIME LIMITS ###########################
     #######################################################
@@ -1060,9 +1058,9 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
         for index, row in options_df.iterrows():
             if verbose:
                 print("################################################")
-            # blocks = row['blocks']
             blocks_cont = row['blocks_cont']
-            target_keys = [1/2] + list(range(1, 8))
+            n = cluster_sizes_below_1
+            target_keys = [i / (n + 1) for i in range(1, n + 1)] + list(range(1, 8))
             new_counter = Counter()
     
             # Iterate over items in the original counter
@@ -1081,7 +1079,7 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             #######################################################
             ########## CLUSTER OPTIONS ############################
             #######################################################
-            clusters = custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, verbose=False, visual=False)
+            clusters = custom_clustering(nodes_df, time_matrix, blocks_cont, num_nodes_metric_coef, spread_metric_coef, num_fixed_metric_coef, doubling_exp, precision=100, verbose=False, visual=False)
 
             if verbose == 2:
                 print("########## CLUSTERING RESULTS ##########")
@@ -1212,16 +1210,24 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
                     print(f'closed_on: {closed_on}, possible_clusters: {possible_clusters}')
                 # remove 0 from row and col of time_matrix
                 time_matrix_sub = time_matrix.drop(0, axis=0).drop(0, axis=1)
-                closest_node = time_matrix_sub.loc[sub_row[1]['node_id'], possible_nodes].idxmin()
-                closest_node_cluster = nodes_df.loc[closest_node, 'cluster']
-                closest_node_cluster_name = nodes_df.loc[closest_node, 'cluster_name']
+                possible_nodes = time_matrix_sub.loc[sub_row[1]['node_id'], possible_nodes]
+                if not possible_nodes.empty:
+                    closest_node = possible_nodes.idxmin()
+                    closest_node_cluster = nodes_df.loc[closest_node, 'cluster']
+                    closest_node_cluster_name = nodes_df.loc[closest_node, 'cluster_name']
 
-                if verbose == 2:
-                    print(f'reassigning node {sub_row[1]["node_id"]} with coordinates ({sub_row[1]["x"]}, {sub_row[1]["y"]}) to cluster {closest_node_cluster} since node {closest_node} with coordinates ({nodes_df.loc[closest_node, "x"]}, {nodes_df.loc[closest_node, "y"]}) is the closest node in a possible cluster')
-                # update the cluster of the node with the set defining the new cluster preventing "Must have equal len keys and value when setting with an iterable"
-                nodes_df.at[sub_row[0], 'cluster'] = closest_node_cluster
-                nodes_df.at[sub_row[0], 'cluster_name'] = closest_node_cluster_name
-            
+                    # update the cluster of the node with the set defining the new cluster preventing "Must have equal len keys and value when setting with an iterable"
+                    nodes_df.at[sub_row[0], 'cluster'] = closest_node_cluster
+                    nodes_df.at[sub_row[0], 'cluster_name'] = closest_node_cluster_name
+
+                    if verbose == 2:
+                        print(f'reassigned node {sub_row[1]["node_id"]} with coordinates ({sub_row[1]["x"]}, {sub_row[1]["y"]}) to cluster {closest_node_cluster} since node {closest_node} with coordinates ({nodes_df.loc[closest_node, "x"]}, {nodes_df.loc[closest_node, "y"]}) is the closest node in a possible cluster')
+                else:
+                    # remove subrow from nodes_df
+                    nodes_df = nodes_df.drop(sub_row[0])
+                    if verbose == 2:
+                        print(f'no possible nodes to reassign {sub_row[1]["node_id"]} to')
+                
             # assign nodes with fixed appointments always to the cluster that contains the fixed appointments visit day in cluster index
             for index_2, row in nodes_df.iterrows():
                 appointment = row['weekday_fixed_appointment']
@@ -1255,8 +1261,12 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             obj_values = 0
             for cluster, node_ids in clusters_and_nodes.items():
                 sub_nodes_df = nodes_df[nodes_df['node_id'].isin(node_ids)]
-                print(sub_nodes_df['cluster'])
-                cluster_set = sub_nodes_df['cluster'].values[1]
+                
+                try:
+                    cluster_set = sub_nodes_df['cluster'].values[1]
+                except:
+                    print(sub_nodes_df['cluster'])
+                
                 if verbose == 3:
                     print(f'##### {cluster} #####')
                     print(f'initial nodes: {node_ids}')
@@ -1353,8 +1363,8 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
 
             all_nodes = set(nodes_df['node_id'])
             respected_nodes_route = set()
-            for trip in route_lists:
-                    route = route_lists[trip]
+            for trip in updated_routes:
+                    route = updated_routes[trip]
                     for node in route:
                         respected_nodes_route.add(node[0])
             all_dropped_nodes = all_nodes - respected_nodes_route
@@ -1372,7 +1382,7 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
 
             options_df.at[index, 'num_nodes_considered'] = len(options_df.at[index, 'respected_nodes'])
             
-            options_df.at[index, 'route_lists'] = route_lists
+            options_df.at[index, 'route_lists'] = updated_routes
             options_df.at[index, 'bad_overnights'] = bad_overnight
             
             options_df.at[index, 'fixed_appointments_nodes'] = list(fixed_appointment_nodes)
@@ -1480,7 +1490,6 @@ def prelim_check(nodes_df, time_matrix, work_schedule, fix_app_margin, work_days
 
         return conflicts
 
-
     def conflicting_nodes_to_be_removed(conflicts):
         node_counter = Counter(node for conflict in conflicts for node in conflict)
         removed_nodes = []
@@ -1536,3 +1545,23 @@ def prelim_check(nodes_df, time_matrix, work_schedule, fix_app_margin, work_days
     if verbose:
         print("\n".join(messages))
     return nodes_df, messages
+
+# META DATA COLLECTION 
+def save_results(results_df, filename='vrp_results.csv'):
+    results_df.to_csv(filename, index=False)
+    print(f"Results saved to {filename}")
+    
+def load_results(filename='vrp_results.csv'):
+    import os
+    if os.path.exists(filename):
+        return pd.read_csv(filename)
+    else:
+        print(f"No existing file found. A new DataFrame will be initialized.")
+        return pd.DataFrame()  # Return an empty DataFrame if the file does not exist
+
+def append_and_save_new_results(new_results, filename='vrp_results.csv'):
+    existing_results_df = load_results(filename)
+    # Concatenate new results to the existing DataFrame
+    updated_results_df = pd.concat([existing_results_df, pd.DataFrame(new_results)], ignore_index=True)
+    # Save the updated DataFrame
+    save_results(updated_results_df, filename)

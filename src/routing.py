@@ -1,3 +1,5 @@
+import bisect
+import math
 import pandas as pd
 pd.options.mode.chained_assignment = None
 import numpy as np
@@ -114,7 +116,7 @@ def plot_refined_clusters(refined_clusters, nodes_df, home_node_id=0):
             name=str(cluster_label),
             hoverinfo='text',
             hovertext=[
-                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']} <br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']} <br>On site time: {nodes_df.loc[node_id, 'on_site_time']} <br>Time Window: {nodes_df.loc[node_id, 'adjusted_opening_hours']} <br>"
+                f"Node: {node_id}<br>Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f} <br>Angle to home: {nodes_df.loc[node_id, 'angle_to_home']} <br>Distance to home: {nodes_df.loc[node_id, 'dist_to_home']} <br>On site time: {nodes_df.loc[node_id, 'on_site_time']}<br>"
                 for node_id in node_indices
             ]
         ))
@@ -171,8 +173,8 @@ def plot_refined_clusters(refined_clusters, nodes_df, home_node_id=0):
 
     fig.show()
     
-def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
-    """Plot routes for all clusters with distinct color schemes and highlight the home node distinctly."""
+def plot_all_cluster_routes(route_lists, nodes_df, overnight_nodes, home_node_id=0):
+    """Plot routes for all clusters with distinct color schemes and highlight the home node and nodes with fixed appointments distinctly, and overnight nodes with an 'X' marker."""
     # Initialize Plotly figure
     fig = go.Figure()
 
@@ -181,42 +183,76 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
 
     # Plot each cluster's route
     for index, (cluster_label, route_list) in enumerate(route_lists.items()):
+        match_cluster_label = cluster_label[:cluster_label.find('_{')]
         color = colors[index % len(colors)]  # Choose a color based on the current index
 
-        # Extract node IDs and times for plotting coordinates and hover text
-        node_ids = [node_id for node_id, _ in route_list]  # Extract just the node IDs from the tuples
-        times = [time for _, time in route_list]  # Extract times for hover text
-        x = [nodes_df.loc[node_id, 'x'] for node_id in node_ids]
-        y = [nodes_df.loc[node_id, 'y'] for node_id in node_ids]
+        # Extract node IDs for plotting coordinates
+        visited_node_ids = [node_id for node_id, _ in route_list]
+        x_visited = [nodes_df.loc[node_id, 'x'] for node_id in visited_node_ids]
+        y_visited = [nodes_df.loc[node_id, 'y'] for node_id in visited_node_ids]
 
-        # Adding the route trace
+        # Determine marker properties: check if the node is an overnight node
+        if overnight_nodes:
+            marker_symbols = ['x' if node_id in overnight_nodes else 'circle' for node_id in visited_node_ids]
+        else:
+            marker_symbols = 'circle'
+        marker_colors_visited = [
+            'black' if isinstance(nodes_df.loc[node_id, 'fixed_appointment'], list) else color
+            for node_id in visited_node_ids
+        ]
+
+        # Hover text for visited nodes
+        hover_text_visited = [
+            f"Node: {node_id}<br>Time: {time}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>"
+            f"Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>"
+            f"Time Window: {nodes_df.loc[node_id, 'adjusted_opening_hours_hhmm']}<br>"
+            f"On site time: {nodes_df.loc[node_id, 'on_site_time']}<br>"
+            for node_id, time in route_list
+        ]
+
+        # Adding the route trace for visited nodes
         fig.add_trace(go.Scatter(
-            x=x,
-            y=y,
+            x=x_visited,
+            y=y_visited,
             mode='lines+markers',
             line=dict(color=color, width=2),
-            marker=dict(
-                color=[
-                    'black' if isinstance(nodes_df.loc[node_id, 'fixed_appointment'], list) else color
-                    for node_id in node_ids
-                ],
-                size=8
-            ),
-            name=f"Route {cluster_label}",
+            marker=dict(symbol=marker_symbols, color=marker_colors_visited, size=10),
+            name=f"Visited - {cluster_label}",
             hoverinfo='text',
-            hovertext=[
-                f"Node: {node_id}<br> \
-                Time: {time}<br>\
-                Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>\
-                Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>\
-                Angle to home: {nodes_df.loc[node_id, 'angle_to_home']}<br>\
-                Distance to home: {nodes_df.loc[node_id, 'dist_to_home']}<br>\
-                Time Window: {nodes_df.loc[node_id, 'adjusted_opening_hours']}<br>\
-                On site time: {nodes_df.loc[node_id, 'on_site_time']}<br>\
-                "
-                for node_id, time in zip(node_ids, times)
-            ]
+            hovertext=hover_text_visited
         ))
+
+        # Identify unvisited nodes in this cluster
+        unvisited_nodes = nodes_df[(nodes_df['cluster_name'] == match_cluster_label) & (~nodes_df['node_id'].isin(visited_node_ids))]
+        if not unvisited_nodes.empty:
+            x_unvisited = unvisited_nodes['x']
+            y_unvisited = unvisited_nodes['y']
+
+            # Determine marker color for unvisited nodes
+            marker_colors_unvisited = [
+                'black' if isinstance(nodes_df.loc[node_id, 'fixed_appointment'], list) else  color
+                for node_id in unvisited_nodes['node_id']
+            ]
+
+            # Hover text for unvisited nodes
+            hover_text_unvisited = [
+                f"Node: {node_id}<br>Priority: {nodes_df.loc[node_id, 'priority']:.2f}<br>"
+                f"Days: {list(nodes_df.loc[node_id, 'opening_hours'].keys())}<br>"
+                f"Time Window: {nodes_df.loc[node_id, 'adjusted_opening_hours_hhmm']}<br>"
+                f"On site time: {nodes_df.loc[node_id, 'on_site_time']}<br>"
+                for node_id in unvisited_nodes['node_id']
+            ]
+
+            # Adding trace for unvisited nodes
+            fig.add_trace(go.Scatter(
+                x=x_unvisited,
+                y=y_unvisited,
+                mode='markers',
+                marker=dict(color=marker_colors_unvisited, size=6, opacity=0.5),
+                name=f"Unvisited - {cluster_label}",
+                hoverinfo='text',
+                hovertext=hover_text_unvisited
+            ))
 
     # Add the home node distinctly
     home_x = nodes_df.loc[home_node_id, 'x']
@@ -247,7 +283,7 @@ def plot_all_cluster_routes(route_lists, nodes_df, home_node_id=0):
     return fig
 
 # DATA GENERATION
-def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, penalty_factor, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, frac_fixed_app=.1, simple_schedule=False):
+def create_data(num_nodes, frac_fixed_app, home_node_id, min_work_days, days_off, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=30, simple_schedule=False):
     """Create a DataFrame containing nodes' information, including their attributes and distances."""
     node_ids = np.arange(0, num_nodes)
     
@@ -258,10 +294,10 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, pen
         days = sorted(random.sample(range(1, 8), min_work_days))
         for day in days:
             # Generate random start hours and end hours within constraints
-            start_hour = 11 + random.randint(0, 1) # Start between 8 and 9
-            end_hour = start_hour + random.randint(9, 10) # End between 16 and 18
-            # start_minute = random.randint(0, 59)
-            # end_minute = random.randint(0, 59)
+            start_hour = 8 + random.randint(0, 1) # Start between 8:XX and 9:XX
+            end_hour = start_hour + random.randint(9, 10) # End between 17:XX and 19:XX
+            start_minute = random.randint(0, 59)
+            end_minute = random.randint(0, 59)
             start_minute = 0
             end_minute = 0
 
@@ -290,7 +326,10 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, pen
         selected_indices = nodes_df.sample(frac=frac_fixed_app, replace=True).index
         for idx in selected_indices:
             # day can't be in days_off
-            day = random.choice([day for day in nodes_df.at[idx, 'opening_hours'].keys() if day not in days_off])
+            try:
+                day = random.choice([day for day in nodes_df.at[idx, 'opening_hours'].keys() if day not in days_off])
+            except:
+                continue
             start, end = nodes_df.at[idx, 'opening_hours'][day][0][0], nodes_df.at[idx, 'opening_hours'][day][-1][-1]
             if isinstance(start, str):  # Checking if start time is still a string
                 start = datetime.strptime(start, "%H:%M").time()
@@ -322,7 +361,9 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, pen
 
     nodes_df.sort_values("node_id", inplace=True)
     nodes_df['days_since_last_visit'] = (current_date - pd.to_datetime(nodes_df['last_visited'])).dt.days
-    nodes_df['priority'] = nodes_df['days_since_last_visit'] / nodes_df['Visiting Interval (days)']
+    
+    nodes_df['weeks_until_visit'] = (nodes_df['Visiting Interval (days)'] - nodes_df['days_since_last_visit']) / 7
+
     nodes_df['fixed_appointment'] =  [[] for _ in range(num_nodes)]
     nodes_df['opening_hours'] = nodes_df['opening_hours']
     nodes_df = add_fixed_appointments(nodes_df, frac_fixed_app)
@@ -349,10 +390,14 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, pen
     nodes_df = nodes_df.explode('fixed_appointment').reset_index(drop=True)
     nodes_df['weekday_fixed_appointment'] = nodes_df['fixed_appointment'].apply(lambda x: x[0] if isinstance(x, list) else np.nan)
     
-    nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = 2
-    nodes_df['priority'] = (nodes_df['priority']*100)**penalty_factor[0]
-    nodes_df['priority'] = round((nodes_df['priority'] - nodes_df['priority'].min()) / (nodes_df['priority'].max() - nodes_df['priority'].min()) * penalty_factor[1] + penalty_factor[2], 0)
-    nodes_df['priority'] = nodes_df['priority'].astype(int)
+    # PRIORITY
+    bins = [-float('inf'), 1, 2, 3, float('inf')]
+    nodes_df['priority'] = pd.cut(nodes_df['weeks_until_visit'], bins=bins, labels=[1000, 500, 250, 100], right=False).astype(int)
+    nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = 5000
+    # nodes_df.loc[~nodes_df['weekday_fixed_appointment'].isna(), 'priority'] = 2
+    # nodes_df['priority'] = (nodes_df['priority']*100)**penalty_factor[0]
+    # nodes_df['priority'] = round((nodes_df['priority'] - nodes_df['priority'].min()) / (nodes_df['priority'].max() - nodes_df['priority'].min()) * penalty_factor[1] + penalty_factor[2], 0)
+    # nodes_df['priority'] = nodes_df['priority'].astype(int)
 
     # ensure
     nodes_df['original_node_id'] = nodes_df['node_id']
@@ -379,50 +424,77 @@ def create_nodes_dataframe(num_nodes, home_node_id, min_work_days, days_off, pen
     # Calculate closed days
     nodes_df['closed_days'] = nodes_df['open_days'].apply(lambda x: set(all_days - x))
 
+    nodes_df.loc[nodes_df['node_id'] == 0, 'opening_hours'] = [{
+        1: [[time(0, 1), time(23, 59)]],
+        2: [[time(0, 1), time(23, 59)]],
+        3: [[time(0, 1), time(23, 59)]],
+        4: [[time(0, 1), time(23, 59)]],
+        5: [[time(0, 1), time(23, 59)]],
+        6: [[time(0, 1), time(23, 59)]],
+        7: [[time(0, 1), time(23, 59)]]
+    }] * len(nodes_df[nodes_df['node_id'] == 0])
+    nodes_df.loc[nodes_df['node_id'] == 0, 'closed_days'] = [{}] * len(nodes_df[nodes_df['node_id'] == 0])
+    nodes_df.loc[nodes_df['node_id'] == 0, 'fixed_appointment'] = [np.nan] * len(nodes_df[nodes_df['node_id'] == 0])
+    nodes_df.loc[nodes_df['node_id'] == 0, 'weekday_fixed_appointment'] = [np.nan] * len(nodes_df[nodes_df['node_id'] == 0])
     return nodes_df, distance_df
  
  # CLUSTERING
 
 # DATA ENGINEERING
-def fit_blocks(blocks, gaps, solution, solutions, index=0):
+def fit_blocks(unique_cluster_blocks, gaps, solution, solutions, index=0, verbose=False):
     if index == len(gaps):  # Check if we've addressed all gaps
-        if not blocks:  # Ensure all blocks have been used
+        if not unique_cluster_blocks:  # Ensure all blocks have been used
             solutions.append(solution)
         return
     
     # Attempt to fit each block into the current gap
-    for i, block in enumerate(blocks):
-        # ['1_day_trip_5', '1_day_trip_0', '1_day_trip_1', '1_day_trip_3', '1_day_trip_4', '1_day_trip_2']
+    for i, block in enumerate(unique_cluster_blocks):
         try:
             size = block.split('_')[0]
         except:
             print(f"WARNING: {block}")
-        block_size = 1 if size == '0.5' else int(size)
-        if block_size <= gaps[index]:  # Check if block can fit in the current gap
+        block_size = float(size)
+        if verbose:
+            print(f"gaps in iteration {index}:", gaps)
+        if block_size <= float(gaps[index]):  # Check if block can fit in the current gap
             # Setup for recursion: remove the block and reduce the gap size
-            new_blocks = blocks[:i] + blocks[i+1:]  # Remove current block
+            if verbose:
+                print(f'fitting {block} of size {block_size} into gap of size {gaps[index]}')
+            new_blocks = unique_cluster_blocks[:i] + unique_cluster_blocks[i+1:]  # Remove current block
             new_solution = [lst[:] for lst in solution]  # Copy solution to modify
             new_solution[index].append(block)  # Add block to current gap's solution
+            if verbose:
+                print(f'new solution: {new_solution}')
             
             # Reduce the gap by the size of the block
+            if verbose:
+                print('gaps before:', gaps)
             new_gaps = gaps[:]
             new_gaps[index] -= block_size
+            if verbose:
+                print('gaps after:', new_gaps)
+                print(f'new gap size: {new_gaps[index]}')
             
             # Move to next gap if current gap is exactly filled, otherwise continue
-            if new_gaps[index] == 0:
+            if new_gaps[index] == 0.0:
                 fit_blocks(new_blocks, new_gaps, new_solution, solutions, index + 1)
             else:
+                if verbose:
+                    print(f'Continuing with gap of size {new_gaps[index]}')
                 fit_blocks(new_blocks, new_gaps, new_solution, solutions, index)
+        else:
+            if verbose:
+                print(f'Block {block} of size {block_size} does not fit in gap of size {gaps[index]}')
 
-def get_options_df(days_off, max_days_off, short_days, max_short_days, no_overnight_stays, max_overnight_stays):
+def get_options_df(days_off, relative_day_lengths, no_overnight_stays, max_days_off):
     def find_lists(current_list, current_sum, max_length, target_sum):
         if current_sum > target_sum or len(current_list) > max_length:
             return []
         if current_sum == target_sum and len(current_list) <= max_length:
             return [current_list]
         results = []
-        for i in [0, 0.5] + list(range(1, 8)):
-            adjusted_sum = current_sum + (i if i > 0.6 else 1)  # Adjust sum for 0s treated as 1
+        for i in range(0, 8):
+            adjusted_sum = current_sum + (i if i > 0 else 1)  # Adjust sum for 0s treated as 1
             results.extend(find_lists(current_list + [i], adjusted_sum, max_length, target_sum))
         return results
 
@@ -434,9 +506,9 @@ def get_options_df(days_off, max_days_off, short_days, max_short_days, no_overni
         repeated_list = []
         for num in lst:
             if overnight_trips == 1:
-                repeated_list.extend([num] * (num - 1) + [0] if num > 0.6 else [0.5] if num == 0.5 else [0])
+                repeated_list.extend([num] * (num - 1) + [0] if num > 0 else [0])
             else:
-                repeated_list.extend([num] * num if num > 0.6 else [0.5] if num == 0.5 else [0])
+                repeated_list.extend([num] * num if num > 0 else [0])
         return repeated_list
 
     # Calculate days off for each list
@@ -464,14 +536,33 @@ def get_options_df(days_off, max_days_off, short_days, max_short_days, no_overni
                 overnight_stays += lst[i] - 1
         return overnight_stays
 
+    def combine_day_lengths(day_lengths, multipliers):
+        combined_lengths = []
+        i = 0
+        multiplier_idx = 0
+
+        while i < len(day_lengths) and multiplier_idx < len(multipliers):
+            if multipliers[multiplier_idx] > 1:
+                combined_length = sum(day_lengths[i:i + multipliers[multiplier_idx]])
+                combined_lengths.append(combined_length)
+                i += multipliers[multiplier_idx]
+            else:
+                combined_lengths.append(day_lengths[i])
+                i += 1
+            multiplier_idx += 1
+        
+        # Ensure the combined lengths list is of the correct length
+        while len(combined_lengths) < len(multipliers):
+            combined_lengths.append(0.0)
+        
+        return combined_lengths
+    
     data = {
         'gaps': valid_lists,
         'Sum': [sum(lst) for lst in valid_lists],  # Calculating sum normally, 0s count as 0
         'Length': [len(lst) for lst in valid_lists],
         'n_overnight_trips': [calculate_overnight_stays(lst) for lst in valid_lists],
         'overnight_days': [calculate_overnight_trips(lst) for lst in valid_lists],
-        'short_days': [calculate_trips(lst, 0.5) for lst in valid_lists],
-        'n_short_days': [lst.count(0.5) for lst in valid_lists],  # Counting 0s as 'short days
         'off_days': [calculate_trips(lst, 0) for lst in valid_lists],
         'n_days_off': [lst.count(0) for lst in valid_lists], 
     }
@@ -481,27 +572,14 @@ def get_options_df(days_off, max_days_off, short_days, max_short_days, no_overni
     # Filter the DataFrame based on the constraints
     options_df = options_df[options_df['off_days'].apply(lambda x: all(day in x for day in days_off))]
     options_df = options_df[options_df['n_days_off'].apply(lambda x: x <= max_days_off)]
-    options_df = options_df[options_df['short_days'].apply(lambda x: all(day in x for day in short_days))]
-    options_df = options_df[options_df['n_short_days'].apply(lambda x: x <= max_short_days)]
     options_df = options_df[options_df['overnight_days'].apply(lambda x: not any(day in x for day in no_overnight_stays))]
-    options_df = options_df[options_df['n_overnight_trips'].apply(lambda x: x <= max_overnight_stays)]
-    # add a column to df containing a dictionary counting the number of times an integer >1 appears in the list
     options_df['blocks'] = options_df['gaps'].apply(lambda x: Counter([item for item in x if item > 0]))
+    options_df['gaps_cont'] = options_df['gaps'].apply(lambda x: combine_day_lengths(relative_day_lengths, x))
+    options_df['blocks_cont'] = options_df['gaps_cont'].apply(lambda x: Counter([item for item in x if item > 0]))
     options_df['total_trips'] = options_df['blocks'].apply(lambda x: sum(x.values()))
     options_df = options_df.sort_values(by='n_overnight_trips')
     options_df = options_df.reset_index(drop=True)
     return options_df
-
-def count_fixed_appointments(weekly_schedule, nodes_df):
-    count = 0
-    for i, cluster_day in enumerate(weekly_schedule):
-        start_day = i + 1
-        if 'day_off' not in cluster_day:
-            duration = int(cluster_day.split('_')[0])
-            end_day = start_day + duration
-            for day in range(start_day, end_day + 1):
-                count += nodes_df[(nodes_df['cluster'] == cluster_day) & (nodes_df['weekdays_fixed_appointments'] == day)].shape[0]
-    return count
 
 def adjust_opening_hours(row, work_schedule, margin, time_matrix):
     clusters = row['cluster']
@@ -534,9 +612,9 @@ def adjust_opening_hours(row, work_schedule, margin, time_matrix):
     return adjusted_hours
 
 # CLUSTERING
-def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node_id=0, verbose=False, visual=False):
+def custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, home_node_id=0, verbose=False, visual=False):
     def calculate_metric(nodes_df, time_matrix, global_max_dist, node_ids, cluster_id, print_ind_metrics=False):
-        if len(node_ids) > 0:
+        if len(node_ids) > 1:
             total_spread = np.mean(time_matrix)
             filtered_nodes_df = nodes_df[nodes_df['node_id'].isin(node_ids)]
 
@@ -565,7 +643,7 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
 
             metric = num_nodes_metric * 2 + spread_metric # + num_fixed_metric/3
 
-            if print_ind_metrics and cluster_id == '1_day_trip_0':
+            if verbose==2:
                 print(f'Cluster: {cluster_id}')
                 print(f"Number of nodes metric: {round(num_nodes_metric, 2)}")
                 print(f"Number of fixed appointments metric: {round(num_fixed_metric, 2)}")
@@ -581,14 +659,14 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
         
         return metric
 
-    def adjust_angles(clusters, nodes_df, time_matrix, angle_sizes, degree_adj, global_max_dist, cluster_sizes, total_span, verbose):
+    def adjust_angles(clusters, nodes_df, time_matrix, angle_sizes, degree_adj, global_max_dist, blocks_cont, total_span, verbose):
         metrics = {}
         for cluster_id, node_ids in clusters.items():
             metrics[cluster_id] = calculate_metric(nodes_df, time_matrix, global_max_dist, node_ids, cluster_id)
 
         total_metric = sum(metrics.values())
-        # total_days = sum of each key multiplied by the value in cluster_sizes
-        total_days = sum([key * value for key, value in cluster_sizes.items()])
+        # total_days = sum of each key multiplied by the value in blocks
+        total_days = sum([key * value for key, value in blocks_cont.items()])
         base_metric = total_metric / total_days
         
         target_metrics = {}
@@ -626,9 +704,9 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
         nodes_df_copy = nodes_df.drop(0).copy()
     
     clusters = {}
-    for size, count in cluster_sizes.items():
+    for size, count in blocks_cont.items():
         for i in range(count):
-            clusters[f'{size}_day_trip_{i}'] = []
+            clusters[f'{round(size, 2)}_day_trip_{i}'] = []
     
     angles = sorted(nodes_df_copy['angle_to_home'])
     diffs = [angles[i + 1] - angles[i] for i in range(len(angles) - 1)]
@@ -644,15 +722,15 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
     if verbose == True:
         print(f"Largest gap spans from {gap_start}° to {gap_end}°, covering {max_gap}° leaving a total span of {total_span} for locations.")
 
-    total_equivalent_degrees = sum(count * size for size, count in cluster_sizes.items())
+    total_equivalent_degrees = sum(count * size for size, count in blocks_cont.items())
     base_degree = total_span / total_equivalent_degrees
 
     angle_sizes = {}
-    for size, count in cluster_sizes.items():
+    for size, count in blocks_cont.items():
         # Calculate the angular size for each cluster of this size
         cluster_angle_size = base_degree * size
         for i in range(count):
-            cluster_id = f'{size}_day_trip_{i}'
+            cluster_id = f'{round(size, 2)}_day_trip_{i}'
             angle_sizes[cluster_id] = cluster_angle_size
     global_max_dist = nodes_df_copy['dist_to_home'].max()
 
@@ -681,7 +759,7 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
             else:  # No wrap-around, normal case
                 nodes_in_cluster = [index for index, row in nodes_df_copy.iterrows() if 
                                     (start_angle <= row['angle_to_home'] < end_angle)]
-
+            
             clusters[cluster_id] = [home_node_id] + nodes_in_cluster
             current_angle = end_angle
 
@@ -693,7 +771,7 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
         if i % 25 == 0 and visual:
             plot_refined_clusters(clusters, nodes_df)
         
-        angle_sizes = adjust_angles(clusters, nodes_df_copy, time_matrix, angle_sizes, degree_adj, global_max_dist, cluster_sizes, total_span, verbose)
+        angle_sizes = adjust_angles(clusters, nodes_df_copy, time_matrix, angle_sizes, degree_adj, global_max_dist, blocks_cont, total_span, verbose)
         degree_adj *= 0.97
 
         sum_of_angles = sum(angle_sizes.values())
@@ -716,19 +794,20 @@ def custom_clustering(nodes_df, time_matrix, cluster_sizes, precision, home_node
     assigned_nodes = set([node for nodes in clusters.values() for node in nodes])
     unassigned_nodes = all_nodes - assigned_nodes
     if unassigned_nodes:
-        print(f'Unassigned nodes: {unassigned_nodes}')
-
+        
         mean_angles = {}
         for cluster_id, node_ids in clusters.items():
             angles = nodes_df.loc[node_ids, 'angle_to_home']
             mean_angle = circular_mean(angles)
             mean_angles[cluster_id] = mean_angle
-        print(mean_angles)
+        
         for node_id in unassigned_nodes:
             node_angle = nodes_df.loc[node_id, 'angle_to_home']
             closest_cluster = min(mean_angles, key=lambda x: abs((mean_angles[x] - node_angle + 180) % 360 - 180))
             clusters[closest_cluster].append(node_id)
-        print(f'node {node_id} with X {nodes_df.loc[node_id, "x"]} and Y {nodes_df.loc[node_id, "y"]} and angle {nodes_df.loc[node_id, "angle_to_home"]} was assigned to cluster {closest_cluster} with mean angle {mean_angles[closest_cluster]}')
+        
+        if verbose:
+            print(f'node {node_id} with X {nodes_df.loc[node_id, "x"]} and Y {nodes_df.loc[node_id, "y"]} and angle {nodes_df.loc[node_id, "angle_to_home"]} was assigned to cluster {closest_cluster} with mean angle {mean_angles[closest_cluster]}')
 
     return clusters
 
@@ -748,7 +827,7 @@ def minutes_to_hhmm(minutes_am, days = False):
         return f'{hours:02}:{minutes:02}'
 
 # ROUTING
-def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, work_schedule, time_limit, verbose=False):
+def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, work_schedule, time_limit, start_node, end_node=0, verbose=True):
     def create_data_model(sub_nodes_df, sub_time_matrix):
         """Stores the data for the problem."""
         data = {}
@@ -757,7 +836,9 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
         data['priorities'] = sub_nodes_df['priority'].tolist()
         data['num_vehicles'] = 1
         data['on_site_time'] = sub_nodes_df['on_site_time'].tolist()
-        data['depot'] = 0
+        data['start'] = start_node
+        data['depot'] = end_node
+        data['original_node_ids'] = sub_nodes_df['node_id'].tolist()
         return data
 
     def return_route_and_times(solution, manager, routing, original_node_ids, data):
@@ -773,8 +854,8 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
             time_var = time_dimension.CumulVar(index)
             start_time = solution.Min(time_var)
             end_time = start_time + data['on_site_time'][node_index]  # Include on-site time
-            route_with_travel.append((original_node_id, minutes_to_hhmm(start_time), minutes_to_hhmm(end_time)))  # Include end time for better clarity
-            route_without_travel.append((original_node_id, minutes_to_hhmm(start_time)))  # Include end time for better clarity
+            route_with_travel.append((original_node_id, minutes_to_hhmm(start_time, days=True), minutes_to_hhmm(end_time, days=True)))  # Include end time for better clarity
+            route_without_travel.append((original_node_id, minutes_to_hhmm(start_time, days=True)))  # Include end time for better clarity
             next_index = solution.Value(routing.NextVar(index))
             
             travel_time = routing.GetArcCostForVehicle(index, next_index, 0) - data['on_site_time'][index]  # Get travel time
@@ -788,8 +869,8 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
         final_time_var = time_dimension.CumulVar(index)
         final_start_time = solution.Min(final_time_var)
         final_end_time = final_start_time + data['on_site_time'][final_node_index]
-        route_with_travel.append((final_node_id, minutes_to_hhmm(final_start_time), minutes_to_hhmm(final_end_time)))
-        route_without_travel.append((final_node_id, minutes_to_hhmm(final_start_time)))
+        route_with_travel.append((final_node_id, minutes_to_hhmm(final_start_time, days=True), minutes_to_hhmm(final_end_time, days=True)))
+        route_without_travel.append((final_node_id, minutes_to_hhmm(final_start_time, days=True)))
 
         return route_with_travel, route_without_travel
     
@@ -801,7 +882,7 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
     _, global_work_end = work_schedule[last_day]
     global_work_end = global_work_end + 1440 * int(trip_len - 1)
     
-    max_travel_time = int(10000 * trip_len)
+    max_travel_time = int(5000 * trip_len)
     
     nodes = sub_nodes_df['node_id'].tolist()
     
@@ -809,8 +890,8 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
     sub_time_matrix = [[int(x) for x in row] for row in sub_time_matrix]
     
     data = create_data_model(sub_nodes_df, sub_time_matrix)
-    
-    manager = pywrapcp.RoutingIndexManager(len(data["time_matrix"]), data["num_vehicles"], data["depot"])
+    internal_start_index = data['original_node_ids'].index(data['start'])
+    manager = pywrapcp.RoutingIndexManager(len(data["time_matrix"]), data["num_vehicles"], [internal_start_index], [data['depot']])
     routing = pywrapcp.RoutingModel(manager)
     
     def time_callback(from_index, to_index):
@@ -830,21 +911,25 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
     )
     
     time_dimension = routing.GetDimensionOrDie("total_time")
-    end_index = manager.NodeToIndex(data['depot'])
+    end_index = manager.NodeToIndex(internal_start_index)
+    print(f'end index: {end_index} internal start index: {internal_start_index}, data depot: {data["depot"]}')
     time_dimension.CumulVar(end_index).SetRange(1, global_work_end)
 
     # PENALTY
     for location_index, priority in enumerate(data['priorities']):
-        index = manager.NodeToIndex(location_index)
+        index = manager.IndexToNode(location_index)
         if index == 0:
             continue
         else:
-            routing.AddDisjunction([index], int(priority))
+            routing.AddDisjunction([location_index], int(priority))
 
     # OPENING HOURS, LUNCH AND OVERNIGHT BREAKS window example:
     for location_index, windows in enumerate(data['windows']):
-        index = manager.NodeToIndex(location_index)
-        time_dimension.CumulVar(index).SetRange(windows[0][0], windows[-1][1])
+        original_node_id = data['original_node_ids'][location_index]    
+        print(f'location index: {location_index} and initial index {original_node_id}, windows: {windows}')
+        if internal_start_index != 0:
+            windows = [[1, 1439]]
+        time_dimension.CumulVar(location_index).SetRange(windows[0][0], windows[-1][1])
         ranges = [[windows[i][1], windows[i+1][0]] for i in range(len(windows) - 1)]
         for start, end in ranges:
             time_dimension.CumulVar(index).RemoveInterval(start, end)
@@ -908,24 +993,48 @@ def solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimizati
             if routing.IsStart(node) or routing.IsEnd(node):
                 continue
             if solution.Value(routing.NextVar(node)) == node:
-                dropped.append(original_node_ids[node])
+                dropped_node_id = original_node_ids[manager.IndexToNode(node)]
+                dropped.append(dropped_node_id)
         return return_route_and_times(solution, manager, routing, original_node_ids, data), dropped, solution.ObjectiveValue()
-        
     else:
         print(f"No solution found")
         return None
 
-def create_data(min_work_days, days_off, percentage_of_appointments, num_nodes, penalty_factor):
-    nodes_df, time_matrix = create_nodes_dataframe(num_nodes=num_nodes, min_work_days=min_work_days, days_off=days_off, penalty_factor=penalty_factor, home_node_id=0, visiting_interval_min=10, visiting_interval_max=30, max_last_visit=20, frac_fixed_app=percentage_of_appointments, simple_schedule=False)
-    nodes_df.loc[0,'fixed_appointment'] = np.nan
-    nodes_df.loc[0,'weekday_fixed_appointment'] = np.nan
-    return nodes_df, time_matrix
+def find_last_nodes_per_day(trips):
+    for trip, nodes in trips.items():
+        # Check if the trip spans multiple days by counting the numbers in the curly brackets
+        if len(trip.split('{')[1].split('}')[0].split(',')) > 1:
+            # Initialize tracking variables
+            current_day = None
+            last_node = None
+            day_nodes = []
 
-def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_limit, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, verbose=False, visual=False, restrictive=False):
+            for node_id, time_stamp in nodes:
+                # Extract day information from the timestamp
+                day = time_stamp.split(' ')[-1]
+
+                # If we are still on the same day, update the last node
+                if day == current_day:
+                    last_node = node_id
+                else:
+                    # If the day changes and it's not the first day, record the last node of the previous day
+                    if current_day is not None:
+                        day_nodes.append(last_node)
+                    # Update the current day and reset the last node
+                    current_day = day
+                    last_node = node_id
+
+            # Append the last node of the last day
+            if last_node != 0:
+                day_nodes.append(last_node)
+
+            # Store the list of last nodes for each day in the result dictionary
+            return day_nodes
+
+def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_limit, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, min_distance_overnight, start_node, verbose=False, visual=False, restrictive=False):
     #######################################################
     ######## DEFINE TIME LIMITS ###########################
     #######################################################
-
     if len(options_df) == 0:
         raise ValueError("No valid options found.")
 
@@ -943,20 +1052,39 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
     figs = {}
     route_lists_dict = {}
     options_df['respected_nodes'] = None
-    def main(nodes_df, time_matrix, options_df, verbose, visual, deep=False):
+    options_df['fixed_appointments_nodes'] = None
+    options_df['route_lists'] = None
+    options_df['bad_overnights'] = None
+
+    def main(nodes_df, time_matrix, options_df, verbose, visual, min_distance_overnight):
         for index, row in options_df.iterrows():
             if verbose:
                 print("################################################")
-            blocks = row['blocks']
+            # blocks = row['blocks']
+            blocks_cont = row['blocks_cont']
+            target_keys = [1/2] + list(range(1, 8))
+            new_counter = Counter()
+    
+            # Iterate over items in the original counter
+            for key, count in blocks_cont.items():
+                # Find the insertion point where this key would go in the sorted list
+                pos = bisect.bisect_left(target_keys, key)
+                # Get the correct key from the target keys
+                new_key = target_keys[pos]
+                # Add the count to the new key in the new counter
+                new_counter[new_key] += count
+            
+            blocks_cont = new_counter
+            
             gaps = row['gaps']
-
+            gaps_cont = row['gaps_cont']
             #######################################################
             ########## CLUSTER OPTIONS ############################
             #######################################################
-            precision = 100 if deep else 50
-            clusters = custom_clustering(nodes_df, time_matrix, blocks, precision=precision, verbose=False, visual=False)
+            clusters = custom_clustering(nodes_df, time_matrix, blocks_cont, precision=100, verbose=False, visual=False)
 
             if verbose == 2:
+                print("########## CLUSTERING RESULTS ##########")
                 for cluster, nodes in clusters.items():
                     print(f"Cluster {cluster}:")
                     print(f"Average node priority: {round(nodes_df.loc[nodes_df['node_id'].isin(nodes), 'priority'].mean(), 2)}")
@@ -972,20 +1100,29 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
 
             #######################################################
             ##### FIND BEST WAY TO ASSIGN NODES TO CLUSTERS #######
-            #######################################################
-
-            zero_positions = [i for i, gap in enumerate(gaps) if gap == 0]
-            gaps = [gap for gap in gaps if gap > 0]
-
-            short_positions = [i for i, gap in enumerate(gaps) if gap == 0.5]
-            gaps = [1 if gap == 0.5 else gap for gap in gaps]
-            
-            blocks = list(nodes_df['cluster'].unique())
-            solution = [[] for _ in gaps]  # Initialize solution structure for each gap
-            solutions = []
+            ####################################################### 
             if verbose == 2:
-                print(f'Blocks: {blocks}, Gaps: {gaps}')
-            fit_blocks(blocks, gaps, solution, solutions)
+                print("########## ASSIGNMENT ##########")
+            zero_positions = [i for i, gap in enumerate(gaps) if gap == 0]
+            gaps_cont = [gap for gap in gaps_cont if gap > 0]
+            
+            new_gaps_cont = []
+    
+            # Iterate over each value in the original list
+            for value in gaps_cont:
+                # Find the insertion point where this value would go in the sorted list
+                pos = bisect.bisect_left(target_keys, value)
+                # Get the correct key from the target keys
+                new_key = target_keys[pos]
+                # Append the new key to the new values list
+                new_gaps_cont.append(new_key)
+            gaps_cont = new_gaps_cont
+            unique_cluster_blocks = list(nodes_df['cluster'].unique())
+            solution = [[] for _ in gaps_cont]  # Initialize solution structure for each gap
+            solutions = []
+            if verbose:
+                print("Unique cluster blocks:", unique_cluster_blocks, "Gaps cont:", gaps_cont)
+            fit_blocks(unique_cluster_blocks, gaps_cont, solution, solutions, verbose=verbose)
 
             # Add 0s back to the solution as 'day-off' clusters
             for solution in solutions:
@@ -997,8 +1134,8 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
                 new_sublist = []
                 for item in sublist:
                     count = item.split('_')[0]
-                    count = 1 if count == '0.5' else count
-                    new_sublist.extend([item] * int(count))  # Repeat the item
+                    count = math.ceil(float(count))
+                    new_sublist.extend([item] * count)  # Repeat the item
                 
                 repeated_list.append(new_sublist)
             
@@ -1057,7 +1194,8 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             #######################################################
             ###### CHANGE ASSIGNMENT OF NODES TO CLUSTERS #########
             #######################################################
-            
+            if verbose == 2:
+                print("########## UPDATE ASSIGNMENT ##########")
             # assign "to be visited on a day off" nodes to the cluster
             closed_day_problems = nodes_df[nodes_df.apply(lambda row: row['cluster'].issubset(row['closed_days']), axis=1)][['node_id', 'closed_days', 'x', 'y']]
             closed_day_problems = closed_day_problems[closed_day_problems['node_id'] != 0]
@@ -1099,6 +1237,7 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
                     nodes_df.at[index_2, 'cluster_name'] = cluster_name
 
             nodes_df['adjusted_opening_hours'] = nodes_df.apply(lambda row: adjust_opening_hours(row, work_schedule, margin, time_matrix), axis=1)
+            nodes_df['adjusted_opening_hours_hhmm'] = nodes_df['adjusted_opening_hours'].apply(lambda x: [[minutes_to_hhmm(item, days=True) for item in sublist] for sublist in x])
             
             # nodes_df.groupby('cluster_name') and then get list of node_ids
             clusters_and_nodes = nodes_df.groupby('cluster_name')['node_id'].apply(list)
@@ -1109,11 +1248,14 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             #######################################################
             ########## SOLVE THE VRP FOR EACH CLUSTER #############
             #######################################################
-            dropped_nodes = None
+            if verbose == 2:
+                print("########## SOLVE VRP ##########")
+            dropped_nodes = []
             route_lists = {}
-            obj_value = 0
+            obj_values = 0
             for cluster, node_ids in clusters_and_nodes.items():
                 sub_nodes_df = nodes_df[nodes_df['node_id'].isin(node_ids)]
+                print(sub_nodes_df['cluster'])
                 cluster_set = sub_nodes_df['cluster'].values[1]
                 if verbose == 3:
                     print(f'##### {cluster} #####')
@@ -1129,16 +1271,28 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
                 sub_nodes_df.loc[:, 'cluster_name'] = cluster
                 sub_nodes_df.loc[:, 'cluster'] = sub_nodes_df.loc[:, 'cluster'].apply(lambda _: cluster_set)
                 sub_nodes_df['adjusted_opening_hours'] = sub_nodes_df.apply(lambda row: adjust_opening_hours(row, work_schedule, margin, time_matrix), axis=1)
+                sub_nodes_df['adjusted_opening_hours_hhmm'] = sub_nodes_df['adjusted_opening_hours'].apply(lambda x: [[minutes_to_hhmm(item, days=True) for item in sublist] for sublist in x])
+
+
+
+                # Since nodes are assigned to clusters visiting on days on which they are not open (adjusted_opening_hours is empty list), we have to add those to dropped nodes for a potnetial next iteration and remove them from the current sub_nodes_df
+                invalid_rows = sub_nodes_df[sub_nodes_df['adjusted_opening_hours'].apply(lambda x: len(x) == 0)]
+                if not invalid_rows.empty:
+                    if verbose:
+                        print(f"Nodes {invalid_rows['node_id'].tolist()} are assigned to a cluster on a day they are not open.")
+                    dropped_nodes.extend(invalid_rows['node_id'].tolist())
+                    dropped_nodes = list(set(dropped_nodes))
+                    sub_nodes_df = sub_nodes_df[~sub_nodes_df.index.isin(invalid_rows.index)]
+
 
                 # remove and warn about rows that have a weekday_fixed_appointment that is not in the cluster
                 invalid_rows = sub_nodes_df[sub_nodes_df.apply(
                     lambda row: not pd.isna(row['weekday_fixed_appointment']) and row['weekday_fixed_appointment'] not in row['cluster'], axis=1)]
                 if not invalid_rows.empty:
                     if verbose > 1:
-                        print(f"WARNING: Nodes {invalid_rows['node_id'].tolist()} have fixed appointments that can not take place on the assigned days.")
+                        print(f"Nodes {invalid_rows['node_id'].tolist()} have fixed appointments that can not take place on the assigned days.")
                         print(f'PROOF: {invalid_rows[['weekday_fixed_appointment', 'cluster']]}')
                     sub_nodes_df = sub_nodes_df[~sub_nodes_df.index.isin(invalid_rows.index)]
-                
                 # find route -> dropped nodes
                 if verbose == 3:
                     print(f'nodes for finding route: {sub_nodes_df["node_id"].tolist()}')
@@ -1154,8 +1308,19 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
                     time_limit_cluster = 2
                 if verbose == 1:
                     print(f'spending {time_limit_cluster} seconds on cluster {cluster} of option {index} since it has {sum(sub_nodes_df["fixed_appointment"].notnull())} fixed appointments out of {sum(nodes_df["fixed_appointment"].notnull())}')
-                result, dropped_nodes, obj_value = solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, work_schedule, time_limit_cluster, verbose=False)
-                obj_value += obj_value
+                
+                result, dropped_nodes_iteration, obj_value = solve_vrp(time_matrix, sub_nodes_df, slack, lunch_duration, first_optimization_algorithm, second_optimization_algorithm, GlobalSpanCostCoefficient, work_schedule, time_limit_cluster, start_node, verbose=True)
+                
+                if dropped_nodes_iteration:
+                    if dropped_nodes:
+                        dropped_nodes.extend(dropped_nodes_iteration)
+                    else:
+                        dropped_nodes = dropped_nodes_iteration
+                    dropped_nodes = list(set(dropped_nodes))
+                if not invalid_rows.empty:
+                    dropped_nodes.extend(invalid_rows['node_id'].tolist())
+                    dropped_nodes = list(set(dropped_nodes))
+                obj_values += obj_value
                 
                 route_lists[cluster] = result[1] # route without travel
                 if verbose == 1:
@@ -1163,18 +1328,27 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             
             #######################################################
             ########## EVALUATE THE RESULTS #######################
-            #######################################################
+            #######################################################            
             updated_routes = {}
             for trip_key in route_lists:
                 days = str(cluster_mapping_dict[trip_key])
                 updated_key = f"{trip_key}_{days}"
                 updated_routes[updated_key] = route_lists[trip_key]
             route_lists_dict[index] = updated_routes
-
-            fig = plot_all_cluster_routes(route_lists, nodes_df)
+            overnight_nodes = find_last_nodes_per_day(updated_routes)
+            fig = plot_all_cluster_routes(updated_routes, nodes_df, overnight_nodes)
+            bad_overnight = []
+            if overnight_nodes:
+                for node in overnight_nodes:
+                    distance = time_matrix.iloc[0, node]
+                    if distance < min_distance_overnight:
+                        bad_overnight.append(node)
+            if len(bad_overnight) > 0:
+                print("WARNING: Overnight nodes are too close to the home node.")
+            
             figs[index] = fig
             if visual:
-                print(f'Option {index} with objective value {obj_value} and {len(dropped_nodes)} dropped nodes')
+                print(f'Option {index} with objective value {obj_values} and {len(dropped_nodes)} dropped nodes')
                 fig.show()
 
             all_nodes = set(nodes_df['node_id'])
@@ -1194,41 +1368,33 @@ def solve(options_df, nodes_df, time_matrix, slack, work_schedule, margin, time_
             else:
                 options_df.at[index, 'fixed_app_cons'] = len(respected_nodes_route & fixed_appointment_nodes) / len(fixed_appointment_nodes)
             
-            options_df.at[index, 'obj_value'] = obj_value
-            #options_df.at[index, 'clusters'] = clusters
+            options_df.at[index, 'obj_value'] = obj_values
 
             options_df.at[index, 'num_nodes_considered'] = len(options_df.at[index, 'respected_nodes'])
             
-            options_df.at[index, 'route_lists'] = str(route_lists)
+            options_df.at[index, 'route_lists'] = route_lists
+            options_df.at[index, 'bad_overnights'] = bad_overnight
             
-            options_df.at[index, 'fixed_appointments_nodes'] = str(list(fixed_appointment_nodes))
+            options_df.at[index, 'fixed_appointments_nodes'] = list(fixed_appointment_nodes)
             options_df.at[index, 'fixed_appointments_respected'] = f"{len(fixed_appointment_nodes) - len(set(dropped_nodes) & set(fixed_appointment_nodes))} out of {len(fixed_appointment_nodes)}"
 
         return options_df, figs, route_lists_dict
     
-    options_df, figs, route_lists_dict = main(nodes_df, time_matrix, options_df, verbose, visual)
+    options_df, figs, route_lists_dict = main(nodes_df, time_matrix, options_df, verbose, visual, min_distance_overnight)
 
-    options_df = options_df[['obj_value', 'n_overnight_trips', 'nodes_cons', 'fixed_app_cons', 'num_nodes_cons', 'route_lists', 'gaps', 'Sum', 'Length', 'num_nodes_considered', 'overnight_days', 'short_days', 'n_short_days', 'off_days', 'n_days_off', 'blocks', 'respected_nodes', 'fixed_appointments_nodes']]
+    options_df = options_df[['obj_value', 'n_overnight_trips', 'nodes_cons', 'fixed_app_cons', 'num_nodes_cons', 'bad_overnights', 'route_lists', 'gaps', 'Sum', 'Length', 'num_nodes_considered', 'overnight_days', 'off_days', 'n_days_off', 'blocks', 'respected_nodes', 'fixed_appointments_nodes']]
     
-    return options_df, figs, route_lists_dict
+    return options_df, figs, route_lists_dict, nodes_df
 
-def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max_days_off, max_short_days, verbose=False):
+def prelim_check(nodes_df, time_matrix, work_schedule, fix_app_margin, work_days, verbose=False):
     messages = []
-    # Check for short days or overnight stays defined on days off
-    removed_days = [day for day in list(days_off) if day in short_days]
-    for day in removed_days:
-        days_off.remove(day)
-        messages.append(f"Removed day {day} from days off because it's a short day.")
 
-    # Check for more days off defined than max days off
-    if len(days_off) > max_days_off:
-        max_days_off = len(days_off)
-        messages.append(f"Adjusted max days off to {max_days_off} because {len(days_off)} days off were defined.")
-
-    # Check for more short days defined than max short days
-    if len(short_days) > max_short_days:
-        max_short_days = len(short_days)
-        messages.append(f"Adjusted max short days to {max_short_days} because {len(short_days)} short days were defined.")
+    # ONE DAY WEEK OR DYNAMIC CALCULATION PROBLEMS WITH CLOSED DAYS
+    if len(work_days) == 1:
+        bad_ids = nodes_df[nodes_df['open_days'].apply(lambda x: len(set(x).intersection(work_days)) == 0)]['node_id'].values.tolist()
+        bad_ids = [x for x in bad_ids if x != 0]
+        nodes_df = nodes_df[~nodes_df['node_id'].isin(bad_ids)]
+        messages.append(f"Nodes closed on days they are assigned to (removed due to one day week): {bad_ids}")
 
     # FIXED APPOINTMENT CONFLICTS
     fixed_appointments = nodes_df[nodes_df['fixed_appointment'].notnull()]
@@ -1257,7 +1423,7 @@ def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max
         out_of_schedule_nodes = []
 
         for node_id, weekday, start_str, end_str in appointments:
-            start = parse_time(start_str)
+            start = parse_time(start_str) - fix_app_margin
             end = parse_time(end_str)
             work_start, work_end = work_schedule.get(weekday, [0, 0])
 
@@ -1278,20 +1444,23 @@ def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max
         # Sort appointments by weekday and start time (converted to minutes)
         appointments.sort(key=lambda x: (x[1], parse_time(x[2])))
         conflicts = []
-        
+
         for i in range(len(appointments)):
-            for j in range(i+1, len(appointments)):
+            for j in range(i + 1, len(appointments)):
                 id1, day1, start1, end1 = appointments[i]
                 id2, day2, start2, end2 = appointments[j]
+
+                # Fetch on_site_time for the first node
+                on_site_time = nodes_df.loc[nodes_df['node_id'] == id1, 'on_site_time'].values[0]
 
                 # Only consider appointments on the same day
                 if day1 != day2:
                     continue
 
                 # Convert times to minutes since midnight for comparison
-                start1 = parse_time(start1)
-                end1 = parse_time(end1)
-                start2 = parse_time(start2)
+                start1 = parse_time(start1) - fix_app_margin
+                end1 = parse_time(end1) + on_site_time  # Include on-site time in the end time
+                start2 = parse_time(start2) - fix_app_margin
                 end2 = parse_time(end2)
 
                 # Check for overlapping times
@@ -1299,17 +1468,18 @@ def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max
                     conflicts.append([id1, id2])
                     continue
                 
-                # Check travel time requirement
+                # Check if there's enough time between appointments considering travel time
                 travel_time = timedelta(minutes=time_matrix.iloc[id1, id2])
                 travel_time_minutes = travel_time.total_seconds() / 60
-                
+
                 # Calculate time difference from the end of the first appointment to the start of the second
                 time_diff = start2 - end1
-                
+
                 if time_diff < travel_time_minutes:
                     conflicts.append([id1, id2])
 
         return conflicts
+
 
     def conflicting_nodes_to_be_removed(conflicts):
         node_counter = Counter(node for conflict in conflicts for node in conflict)
@@ -1323,7 +1493,7 @@ def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max
 
     def check_appointment_fit(appointment, opening_hours):
         """Checks if the appointment fits within any of the opening intervals."""
-        start, end = parse_time(appointment[1]), parse_time(appointment[2])
+        start, end = parse_time(appointment[1]) - fix_app_margin, parse_time(appointment[2])
         day_opening_hours = opening_hours.get(appointment[0], [])
         
         for interval in day_opening_hours:
@@ -1362,6 +1532,7 @@ def prelim_check(nodes_df, time_matrix, work_schedule, days_off, short_days, max
     nodes_to_be_removed = conflicting_nodes_to_be_removed(conflicts)
     messages.append(f'Appointments removed due to conflicts among fixed appointments: {nodes_to_be_removed}')
     nodes_df = nodes_df[~nodes_df['node_id'].isin(nodes_to_be_removed)]
+
     if verbose:
         print("\n".join(messages))
-    return nodes_df, messages, days_off, short_days, max_days_off, max_short_days
+    return nodes_df, messages
